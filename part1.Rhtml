@@ -1,0 +1,48 @@
+<!--begin.rcode init,echo=FALSE,result="hide"
+# build("./part1/part1.Rhtml", "./templatr/inst/templates/pres1/","index.html",title="Part 1")
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev="CairoPNG", cache=TRUE)
+knitr::opts_knit$set(root.dir=wd)
+op = options()$continue
+options(continue=" ")
+# grDevices::X11.options(type='cairo')
+set.seed(310366)
+end.rcode-->
+
+<div class="slide" id="title">
+<h1>Maps in R Part 1</h1>
+<h2>So Many Ways To Do It</h2>
+<h3>Barry Rowlingson</h3>
+<h4>Lancaster University</h4>
+<h5>Lancaster Medical School</h5>
+<p style="font-size: 40%">[next slide=right arrow, prev slide=left arrow, or click slide counter top-right for index]</p>
+</div>
+
+<div class="slide" id="plot1">
+<h1>LR test</h1>
+<div class="left">
+<ul>
+<li>A list</ul>
+</ul>
+</div>
+<div class="right">
+<!--begin.rcode 
+dem = raster("../data/cumbriaDem.tif")
+plot(dem)
+end.rcode-->
+</div>
+</div>
+
+<div class="slide" id="maptest">
+<!--begin.rcode
+cumbria = shapefile("../data/cumbria.shp")
+plot(cumbria)
+axis(1)
+axis(2)
+end.rcode-->
+
+<!--begin.rcode
+cumbriaP = spTransform(cumbria,projection(dem))
+plot(dem)
+lines(cumbriaP)
+end.rcode-->
+</div>
