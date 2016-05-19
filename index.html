@@ -99,7 +99,7 @@
 </ul>
 </div>
 <div class="right">
-<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">dem</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;../data/cumbriaDem.tif&quot;</span><span class="hl std">)</span>
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">dem</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaDem.tif&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
 </pre></div>
 </div><div class="rimage default"><img src="figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div></div>
@@ -107,7 +107,7 @@
 </div>
 
 <div class="slide" id="maptest">
-<div class="chunk" id="unnamed-chunk-2"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">cumbria</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;../data/cumbria.shp&quot;</span><span class="hl std">)</span>
+<div class="chunk" id="unnamed-chunk-2"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">cumbria</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbria.shp&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(cumbria)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">axis</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">axis</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl std">)</span>
@@ -119,6 +119,18 @@
 <span class="hl std">&gt; </span><span class="hl kwd">lines</span><span class="hl std">(cumbriaP)</span>
 </pre></div>
 </div><div class="rimage default"><img src="figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div></div>
+</div>
+
+<div class="slide" id="lutest">
+<h1>Land Use</h1>
+<div class="chunk" id="lu"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lu</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLandUse.tif&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl com">#plot(spTransform(cumbria, projection(lu)))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(lu)</span>
+</pre></div>
+</div><div class="rimage default"><img src="figure/lu-1.png" title="plot of chunk lu" alt="plot of chunk lu" class="plot" /></div><div class="rimage default"><img src="figure/lu-2.png" title="plot of chunk lu" alt="plot of chunk lu" class="plot" /></div><div class="rcode">
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
+</pre></div>
+</div><div class="rimage default"><img src="figure/lu-3.png" title="plot of chunk lu" alt="plot of chunk lu" class="plot" /></div></div>
 </div>
 <!--script type="text/javascript" src="lib/jquery-2.1.3.min.js" ></script-->
 <script type="text/javascript" src="presentation.js"></script>

@@ -1,6 +1,6 @@
 <!--begin.rcode init,echo=FALSE,result="hide"
 # build("./part1/part1.Rhtml", "./templatr/inst/templates/pres1/","index.html",title="Part 1")
-knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev="CairoPNG", cache=TRUE)
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev="CairoPNG")
 knitr::opts_knit$set(root.dir=wd)
 op = options()$continue
 options(continue=" ")
@@ -26,7 +26,7 @@ end.rcode-->
 </div>
 <div class="right">
 <!--begin.rcode 
-dem = raster("../data/cumbriaDem.tif")
+dem = raster("./data/cumbriaDem.tif")
 plot(dem)
 end.rcode-->
 </div>
@@ -34,7 +34,7 @@ end.rcode-->
 
 <div class="slide" id="maptest">
 <!--begin.rcode
-cumbria = shapefile("../data/cumbria.shp")
+cumbria = shapefile("./data/cumbria.shp")
 plot(cumbria)
 axis(1)
 axis(2)
@@ -44,5 +44,15 @@ end.rcode-->
 cumbriaP = spTransform(cumbria,projection(dem))
 plot(dem)
 lines(cumbriaP)
+end.rcode-->
+</div>
+
+<div class="slide" id="lutest">
+<h1>Land Use</h1>
+<!--begin.rcode lu, fig.keep="all"
+lu = raster("./data/cumbriaLandUse.tif")
+#plot(spTransform(cumbria, projection(lu)))
+plot(lu)
+plot(dem)
 end.rcode-->
 </div>
