@@ -248,11 +248,11 @@
 </pre></div>
 </div>
  <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-1" >
-<img src="figure/unnamed-chunk-1-1.png" class="rplot" />
+<img src="figure/unnamed-chunk-1-1.png" height="500px" width="500px" class="rplot" />
 </a>
     <div class="modal hide fade" id="img-unnamed-chunk-1">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-1-1.png" />
+    <img src="figure/unnamed-chunk-1-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
@@ -265,11 +265,11 @@
 </pre></div>
 </div>
  <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-2" >
-<img src="figure/unnamed-chunk-2-1.png" class="rplot" />
+<img src="figure/unnamed-chunk-2-1.png" height="500px" width="500px" class="rplot" />
 </a>
     <div class="modal hide fade" id="img-unnamed-chunk-2">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-2-1.png" />
+    <img src="figure/unnamed-chunk-2-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
@@ -277,6 +277,82 @@
 
 <div class="slide" id="gridgraphics">
 <h1>Grid Graphics</h1>
+<ul>
+<li>Drop everything. Let's start again.</li>
+<li>A New Graphics System</li>
+</ul>
+<div id="unnamed-chunk-3" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">xy</span><span class="hl kwb">=</span><span class="hl kwd">list</span><span class="hl std">(</span>
+<span class="hl std"> </span>   <span class="hl kwc">x</span> <span class="hl std">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">41</span><span class="hl std">,</span> <span class="hl num">13</span><span class="hl std">,</span> <span class="hl num">21</span><span class="hl std">,</span> <span class="hl num">40</span><span class="hl std">,</span> <span class="hl num">44</span><span class="hl std">,</span>
+<span class="hl std"> </span>         <span class="hl num">31</span><span class="hl std">,</span> <span class="hl num">49</span><span class="hl std">,</span> <span class="hl num">55</span><span class="hl std">,</span> <span class="hl num">65</span><span class="hl std">,</span> <span class="hl num">83</span><span class="hl std">,</span>
+<span class="hl std"> </span>         <span class="hl num">67</span><span class="hl std">,</span> <span class="hl num">63</span><span class="hl std">,</span> <span class="hl num">87</span><span class="hl std">,</span> <span class="hl num">100</span><span class="hl std">,</span> <span class="hl num">93</span><span class="hl std">,</span>
+<span class="hl std"> </span>         <span class="hl num">84</span><span class="hl std">,</span> <span class="hl num">60</span><span class="hl std">)</span><span class="hl opt">/</span><span class="hl num">100</span><span class="hl std">,</span>
+<span class="hl std"> </span>   <span class="hl kwc">y</span> <span class="hl std">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">76</span><span class="hl std">,</span> <span class="hl num">49</span><span class="hl std">,</span> <span class="hl num">42</span><span class="hl std">,</span> <span class="hl num">56</span><span class="hl std">,</span> <span class="hl num">31</span><span class="hl std">,</span>
+<span class="hl std"> </span>         <span class="hl num">2</span><span class="hl std">,</span> <span class="hl num">2</span><span class="hl std">,</span> <span class="hl num">26</span><span class="hl std">,</span> <span class="hl num">3</span><span class="hl std">,</span> <span class="hl num">2</span><span class="hl std">,</span> <span class="hl num">33</span><span class="hl std">,</span>
+<span class="hl std"> </span>        <span class="hl num">61</span><span class="hl std">,</span> <span class="hl num">48</span><span class="hl std">,</span> <span class="hl num">82</span><span class="hl std">,</span> <span class="hl num">85</span><span class="hl std">,</span> <span class="hl num">62</span><span class="hl std">,</span> <span class="hl num">78</span><span class="hl std">)</span><span class="hl opt">/</span><span class="hl num">100</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl std">head</span> <span class="hl kwb">=</span> <span class="hl kwd">circleGrob</span><span class="hl std">(</span><span class="hl num">0.5</span><span class="hl std">,</span><span class="hl num">0.85</span><span class="hl std">,</span><span class="hl num">.15</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">body</span> <span class="hl kwb">=</span> <span class="hl kwd">pathGrob</span><span class="hl std">(xy</span><span class="hl opt">$</span><span class="hl std">x,xy</span><span class="hl opt">$</span><span class="hl std">y)</span>
+<span class="hl std">&gt; </span><span class="hl std">person</span> <span class="hl kwb">=</span> <span class="hl kwd">grobTree</span><span class="hl std">(head,body)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">grid.draw</span><span class="hl std">(person)</span>
+<span class="hl std">&gt; </span><span class="hl std">vp</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">viewport</span><span class="hl std">(</span><span class="hl kwc">width</span><span class="hl std">=</span><span class="hl num">0.5</span><span class="hl std">,</span> <span class="hl kwc">height</span><span class="hl std">=</span><span class="hl num">0.5</span><span class="hl std">,</span> <span class="hl kwc">x</span><span class="hl std">=</span><span class="hl num">0.25</span><span class="hl std">,</span> <span class="hl kwc">y</span><span class="hl std">=</span><span class="hl num">0.45</span><span class="hl std">,</span> <span class="hl kwc">angle</span><span class="hl std">=</span><span class="hl num">45</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">pushViewport</span><span class="hl std">(vp)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">grid.draw</span><span class="hl std">(</span><span class="hl kwd">editGrob</span><span class="hl std">(person,</span> <span class="hl kwc">gp</span><span class="hl std">=</span><span class="hl kwd">gpar</span><span class="hl std">(</span><span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">)))</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-3" >
+<img src="figure/unnamed-chunk-3-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-3">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-3-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<ul>
+<li>Common paradigm: return an object</li>
+<li>Only draw it when printed</li>
+</ul>
+
+<div id="unnamed-chunk-4" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">p</span> <span class="hl kwb">=</span> <span class="hl kwd">xyplot</span><span class="hl std">(mpg</span><span class="hl opt">~</span><span class="hl std">wt,</span> <span class="hl kwc">data</span><span class="hl std">=mtcars)</span>
+<span class="hl std">&gt; </span><span class="hl com"># nothing happens!</span>
+</pre></div></div>
+ </div>
+
+<p>Have to explicitly or implicitly print it</p>
+<div id="unnamed-chunk-5" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">print</span><span class="hl std">(p)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-5" >
+<img src="figure/unnamed-chunk-5-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-5">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-5-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<ul>
+<li><em>CANNOT</em> add to it with base graphics: <code>title("Plot")</code>, <code>points(x,y)</code>, 
+<code>abline(v=4)</code> etc.</li>
+<li>Have to build the plot with panel functions</li>
+</ul>
+
+<div id="unnamed-chunk-6" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">xyplot</span><span class="hl std">(mpg</span><span class="hl opt">~</span><span class="hl std">wt,</span><span class="hl kwc">data</span><span class="hl std">=mtcars,</span> <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;Cars&quot;</span><span class="hl std">,</span>
+<span class="hl std"> </span>   <span class="hl kwc">panel</span><span class="hl std">=</span><span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">,</span><span class="hl kwc">y</span><span class="hl std">,</span><span class="hl kwc">...</span><span class="hl std">){</span>
+<span class="hl std"> </span>      <span class="hl kwd">panel.xyplot</span><span class="hl std">(x,y);</span><span class="hl kwd">panel.lmline</span><span class="hl std">(x,y)</span>
+<span class="hl std"> </span>   <span class="hl std">})</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-6" >
+<img src="figure/unnamed-chunk-6-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-6">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-6-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+
 </div>
 
 <div class="slide" id="basegfxmaps">
@@ -323,11 +399,11 @@
 </pre></div>
 </div>
  <div class="rimage"><a  data-toggle="modal" href="#img-map1" >
-<img src="figure/map1-1.png" class="rplot" />
+<img src="figure/map1-1.png" height="500px" width="500px" class="rplot" />
 </a>
     <div class="modal hide fade" id="img-map1">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/map1-1.png" />
+    <img src="figure/map1-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
@@ -337,11 +413,11 @@
 </pre></div>
 </div>
  <div class="rimage"><a  data-toggle="modal" href="#img-map2" >
-<img src="figure/map2-1.png" class="rplot" />
+<img src="figure/map2-1.png" height="500px" width="500px" class="rplot" />
 </a>
     <div class="modal hide fade" id="img-map2">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/map2-1.png" />
+    <img src="figure/map2-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
@@ -352,16 +428,16 @@
 </pre></div>
 </div>
  <div class="rimage"><a  data-toggle="modal" href="#img-map3" >
-<img src="figure/map3-1.png" class="rplot" />
+<img src="figure/map3-1.png" height="500px" width="500px" class="rplot" />
 </a>
     <div class="modal hide fade" id="img-map3">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/map3-1.png" />
+    <img src="figure/map3-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <p>Control styling directly with extra parameters...</p>
-<div id="unnamed-chunk-3" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crime</span><span class="hl opt">$</span><span class="hl std">Longitude, crime</span><span class="hl opt">$</span><span class="hl std">Latitude,</span>
+<div id="unnamed-chunk-7" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crime</span><span class="hl opt">$</span><span class="hl std">Longitude, crime</span><span class="hl opt">$</span><span class="hl std">Latitude,</span>
 <span class="hl std"> </span>   <span class="hl kwc">asp</span><span class="hl std">=</span><span class="hl num">1.726</span><span class="hl std">,</span>
 <span class="hl std"> </span>   <span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">19</span><span class="hl std">,</span>
 <span class="hl std"> </span>   <span class="hl kwc">cex</span><span class="hl std">=</span><span class="hl num">1</span><span class="hl std">,</span>
@@ -371,12 +447,12 @@
 <span class="hl std"> </span>       <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">,</span><span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">17</span><span class="hl std">)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-3" >
-<img src="figure/unnamed-chunk-3-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-7" >
+<img src="figure/unnamed-chunk-7-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-3">
+    <div class="modal hide fade" id="img-unnamed-chunk-7">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-3-1.png" />
+    <img src="figure/unnamed-chunk-7-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
@@ -387,38 +463,38 @@
 <p>
 We should really work with <code>sp</code> class objects</p>
 
-<div id="unnamed-chunk-4" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">crimeSP</span> <span class="hl kwb">=</span> <span class="hl kwd">subset</span><span class="hl std">(crime,</span> <span class="hl opt">!</span><span class="hl kwd">is.na</span><span class="hl std">(Longitude)</span> <span class="hl opt">&amp; !</span><span class="hl kwd">is.na</span><span class="hl std">(Latitude))</span>
+<div id="unnamed-chunk-8" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">crimeSP</span> <span class="hl kwb">=</span> <span class="hl kwd">subset</span><span class="hl std">(crime,</span> <span class="hl opt">!</span><span class="hl kwd">is.na</span><span class="hl std">(Longitude)</span> <span class="hl opt">&amp; !</span><span class="hl kwd">is.na</span><span class="hl std">(Latitude))</span>
 <span class="hl std">&gt; </span><span class="hl kwd">coordinates</span><span class="hl std">(crimeSP)</span> <span class="hl kwb">=</span> <span class="hl opt">~</span><span class="hl std">Longitude</span> <span class="hl opt">+</span> <span class="hl std">Latitude</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crimeSP)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-4" >
-<img src="figure/unnamed-chunk-4-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-8" >
+<img src="figure/unnamed-chunk-8-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-4">
+    <div class="modal hide fade" id="img-unnamed-chunk-8">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-4-1.png" />
+    <img src="figure/unnamed-chunk-8-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <p>Should set the projection...</p>
 
-<div id="unnamed-chunk-5" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">projection</span><span class="hl std">(crimeSP)</span><span class="hl kwb">=</span><span class="hl str">&quot;+init=epsg:4326&quot;</span>
+<div id="unnamed-chunk-9" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">projection</span><span class="hl std">(crimeSP)</span><span class="hl kwb">=</span><span class="hl str">&quot;+init=epsg:4326&quot;</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crimeSP)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-5" >
-<img src="figure/unnamed-chunk-5-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-9" >
+<img src="figure/unnamed-chunk-9-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-5">
+    <div class="modal hide fade" id="img-unnamed-chunk-9">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-5-1.png" />
+    <img src="figure/unnamed-chunk-9-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <p>Same options for controlling style...</p>
 
-<div id="unnamed-chunk-6" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crimeSP)</span>
+<div id="unnamed-chunk-10" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(crimeSP)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">points</span><span class="hl std">(crimeSP[crimeSP</span><span class="hl opt">$</span><span class="hl std">Crime.type</span><span class="hl opt">==</span><span class="hl str">&quot;Robbery&quot;</span><span class="hl std">,],</span>
 <span class="hl std"> </span>       <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;red&quot;</span><span class="hl std">,</span>
 <span class="hl std"> </span>       <span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">17</span><span class="hl std">)</span>
@@ -430,17 +506,18 @@ We should really work with <code>sp</code> class objects</p>
 <span class="hl std">&gt; </span><span class="hl kwd">title</span><span class="hl std">(</span><span class="hl str">&quot;Robbery&quot;</span><span class="hl std">)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-6" >
-<img src="figure/unnamed-chunk-6-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-10" >
+<img src="figure/unnamed-chunk-10-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-6">
+    <div class="modal hide fade" id="img-unnamed-chunk-10">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-6-1.png" />
+    <img src="figure/unnamed-chunk-10-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
-<h2>Constructing look-up tables</h2>
-<div id="unnamed-chunk-7" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">roads</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;./data/mainroads.shp&quot;</span><span class="hl std">)</span>
+<h2>Styling with Look-up Tables</h2>
+<p>Want to plot a road map with roads coloured by type...</p>
+<div id="unnamed-chunk-11" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">roads</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;./data/mainroads.shp&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">table</span><span class="hl std">(roads</span><span class="hl opt">$</span><span class="hl std">type)</span>
 </pre></div>
 <div class="output"><pre class="knitr r">
@@ -472,17 +549,17 @@ secondary      green     2
 <div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(roads,</span> <span class="hl kwc">col</span><span class="hl std">=lut[roads</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;colour&quot;</span><span class="hl std">],</span> <span class="hl kwc">lwd</span><span class="hl std">=lut[roads</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;width&quot;</span><span class="hl std">])</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-7" >
-<img src="figure/unnamed-chunk-7-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-11" >
+<img src="figure/unnamed-chunk-11-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-7">
+    <div class="modal hide fade" id="img-unnamed-chunk-11">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-7-1.png" />
+    <img src="figure/unnamed-chunk-11-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <h2>Controlling Plot Order</h2>
-<div id="unnamed-chunk-8" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lut</span><span class="hl opt">$</span><span class="hl std">order</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">11</span><span class="hl std">,</span><span class="hl num">10</span><span class="hl std">,</span><span class="hl num">7</span><span class="hl std">,</span><span class="hl num">6</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl num">4</span><span class="hl std">,</span><span class="hl num">3</span><span class="hl std">,</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl num">9</span><span class="hl std">,</span><span class="hl num">8</span><span class="hl std">)</span>
+<div id="unnamed-chunk-12" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lut</span><span class="hl opt">$</span><span class="hl std">order</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">11</span><span class="hl std">,</span><span class="hl num">10</span><span class="hl std">,</span><span class="hl num">7</span><span class="hl std">,</span><span class="hl num">6</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl num">4</span><span class="hl std">,</span><span class="hl num">3</span><span class="hl std">,</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl num">9</span><span class="hl std">,</span><span class="hl num">8</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">SpatialPoints</span><span class="hl std">(</span>
 <span class="hl std"> </span>       <span class="hl kwd">as</span><span class="hl std">(</span><span class="hl kwd">extent</span><span class="hl std">(roads),</span>
 <span class="hl std"> </span>       <span class="hl str">&quot;SpatialPoints&quot;</span><span class="hl std">),</span>
@@ -497,27 +574,27 @@ secondary      green     2
 <span class="hl std"> </span><span class="hl std">}</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-8" >
-<img src="figure/unnamed-chunk-8-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-12" >
+<img src="figure/unnamed-chunk-12-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-8">
+    <div class="modal hide fade" id="img-unnamed-chunk-12">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-8-1.png" />
+    <img src="figure/unnamed-chunk-12-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <h2>Alternatively, order the spatial data...</h2>
-<div id="unnamed-chunk-9" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">roads</span><span class="hl opt">$</span><span class="hl std">order</span> <span class="hl kwb">=</span> <span class="hl std">lut[roads</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;order&quot;</span><span class="hl std">]</span>
+<div id="unnamed-chunk-13" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">roads</span><span class="hl opt">$</span><span class="hl std">order</span> <span class="hl kwb">=</span> <span class="hl std">lut[roads</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;order&quot;</span><span class="hl std">]</span>
 <span class="hl std">&gt; </span><span class="hl std">rorder</span> <span class="hl kwb">=</span> <span class="hl std">roads[</span><span class="hl kwd">order</span><span class="hl std">(roads</span><span class="hl opt">$</span><span class="hl std">order),]</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(rorder,</span> <span class="hl kwc">col</span><span class="hl std">=lut[rorder</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;colour&quot;</span><span class="hl std">],</span> <span class="hl kwc">lwd</span><span class="hl std">=lut[rorder</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;width&quot;</span><span class="hl std">])</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-9" >
-<img src="figure/unnamed-chunk-9-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-13" >
+<img src="figure/unnamed-chunk-13-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-9">
+    <div class="modal hide fade" id="img-unnamed-chunk-13">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-9-1.png" />
+    <img src="figure/unnamed-chunk-13-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 </div>
@@ -525,7 +602,7 @@ secondary      green     2
 <div class="slide" id="baseprojection">
 <h1>Projections</h1>
 <h2>Have to be done by hand</h2>
-<div id="unnamed-chunk-10" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">admin</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLSOA.shp&quot;</span><span class="hl std">)</span>
+<div id="unnamed-chunk-14" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">admin</span> <span class="hl kwb">=</span> <span class="hl kwd">shapefile</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLSOA.shp&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">extent</span><span class="hl std">(admin)</span>
 </pre></div>
 <div class="output"><pre class="knitr r">class       : Extent 
@@ -547,25 +624,25 @@ ymax        : 55.18898
 </pre></div></div>
  </div>
 <h2>Now we can overlay</h2>
-<div id="unnamed-chunk-11" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(adminLL,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;#ffeecc&quot;</span><span class="hl std">,</span> <span class="hl kwc">border</span><span class="hl std">=</span><span class="hl str">&quot;grey50&quot;</span><span class="hl std">)</span>
+<div id="unnamed-chunk-15" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(adminLL,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;#ffeecc&quot;</span><span class="hl std">,</span> <span class="hl kwc">border</span><span class="hl std">=</span><span class="hl str">&quot;grey50&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(cumbriaLL,</span> <span class="hl kwc">add</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">,</span> <span class="hl kwc">lwd</span><span class="hl std">=</span><span class="hl num">2</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">lines</span><span class="hl std">(roads)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">points</span><span class="hl std">(crimeSP)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-11" >
-<img src="figure/unnamed-chunk-11-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-15" >
+<img src="figure/unnamed-chunk-15-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-11">
+    <div class="modal hide fade" id="img-unnamed-chunk-15">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-11-1.png" />
+    <img src="figure/unnamed-chunk-15-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 </div>
 
 <div class="slide" id="basebasemaps">
 <h1>Basemaps</h1>
-<h2>Open Street Map Package</h2>
+<h2><code>OpenStreetMap</code> Package</h2>
 
 <ul>
 <li>Gets map tiles from online sources using <code>openmap()</code> function</li>
@@ -574,7 +651,7 @@ ymax        : 55.18898
 <li>Put base graphics over the top</li>
 </ul>
 
-<div id="unnamed-chunk-12" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(OpenStreetMap)</span>
+<div id="unnamed-chunk-16" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(OpenStreetMap)</span>
 <span class="hl std">&gt; </span><span class="hl std">wm</span> <span class="hl kwb">=</span> <span class="hl kwd">list</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl opt">-</span><span class="hl num">3.08</span><span class="hl std">,</span> <span class="hl opt">-</span><span class="hl num">2.82</span><span class="hl std">),</span> <span class="hl kwc">y</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">54.50</span><span class="hl std">,</span> <span class="hl num">54.32</span><span class="hl std">))</span>
 <span class="hl std">&gt; </span><span class="hl std">wmap</span> <span class="hl kwb">=</span> <span class="hl kwd">openmap</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(wm</span><span class="hl opt">$</span><span class="hl std">y[</span><span class="hl num">1</span><span class="hl std">],wm</span><span class="hl opt">$</span><span class="hl std">x[</span><span class="hl num">1</span><span class="hl std">]),</span><span class="hl kwd">c</span><span class="hl std">(wm</span><span class="hl opt">$</span><span class="hl std">y[</span><span class="hl num">2</span><span class="hl std">],wm</span><span class="hl opt">$</span><span class="hl std">x[</span><span class="hl num">2</span><span class="hl std">]),</span> <span class="hl kwc">type</span><span class="hl std">=</span><span class="hl str">&quot;osm&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(wmap)</span>
@@ -590,14 +667,15 @@ ymax        : 55.18898
 <span class="hl std"> </span>     <span class="hl kwc">bg</span><span class="hl std">=</span><span class="hl str">&quot;white&quot;</span><span class="hl std">)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-12" >
-<img src="figure/unnamed-chunk-12-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-16" >
+<img src="figure/unnamed-chunk-16-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-12">
+    <div class="modal hide fade" id="img-unnamed-chunk-16">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-12-1.png" />
+    <img src="figure/unnamed-chunk-16-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
+
 </div>
 
 <div class="slide" id="baseraster">
@@ -613,54 +691,29 @@ ymax        : 55.18898
 <li>Precise colour control is tricky</li>
 </ul>
 
-<div id="unnamed-chunk-13" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">require</span><span class="hl std">(RColorBrewer)</span>
+<div id="unnamed-chunk-17" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">require</span><span class="hl std">(RColorBrewer)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(raster)</span>
 <span class="hl std">&gt; </span><span class="hl std">dem</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaDem.tif&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mfrow</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl num">2</span><span class="hl std">))</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
-</pre></div>
-
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">zlim</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1200</span><span class="hl std">))</span>
-</pre></div>
-
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">rainbow</span><span class="hl std">(</span><span class="hl num">10</span><span class="hl std">))</span>
-</pre></div>
-
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">gray</span><span class="hl std">(</span><span class="hl kwd">seq</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl kwc">len</span><span class="hl std">=</span><span class="hl num">10</span><span class="hl std">)))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">zlim</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1200</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">rainbow</span><span class="hl std">(</span><span class="hl num">10</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">gray</span><span class="hl std">(</span><span class="hl kwd">seq</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl kwc">len</span><span class="hl std">=</span><span class="hl num">10</span><span class="hl std">)))</span>
 <span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(rorder,</span><span class="hl kwc">col</span><span class="hl std">=lut[rorder</span><span class="hl opt">$</span><span class="hl std">type,</span><span class="hl str">&quot;colour&quot;</span><span class="hl std">],</span><span class="hl kwc">lwd</span><span class="hl std">=</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl kwc">add</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-13" >
-<img src="figure/unnamed-chunk-13-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-17" >
+<img src="figure/unnamed-chunk-17-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-13">
+    <div class="modal hide fade" id="img-unnamed-chunk-17">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-13-1.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-13" >
-<img src="figure/unnamed-chunk-13-2.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-13">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-13-2.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-13" >
-<img src="figure/unnamed-chunk-13-3.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-13">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-13-3.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-13" >
-<img src="figure/unnamed-chunk-13-4.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-13">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-13-4.png" />
+    <img src="figure/unnamed-chunk-17-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
 <h2>Categorical Rasters</h2>
 
-<div id="unnamed-chunk-14" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lu</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLandUse.tif&quot;</span><span class="hl std">)</span>
+<div id="unnamed-chunk-18" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lu</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLandUse.tif&quot;</span><span class="hl std">)</span>
 <span class="hl std">&gt; </span><span class="hl std">lu</span><span class="hl opt">@</span><span class="hl kwc">legend</span><span class="hl opt">@</span><span class="hl kwc">colortable</span><span class="hl std">[</span><span class="hl num">1</span><span class="hl std">]</span><span class="hl kwb">=</span><span class="hl num">NA</span>
 <span class="hl std">&gt; </span>
 <span class="hl std">&gt; </span><span class="hl std">cumbriaP</span> <span class="hl kwb">=</span> <span class="hl kwd">spTransform</span><span class="hl std">(cumbriaLL,</span><span class="hl kwd">projection</span><span class="hl std">(lu))</span>
@@ -689,197 +742,763 @@ ymax        : 55.18898
 <span class="hl std"> </span>    <span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Top Land Cover by Area&quot;</span><span class="hl std">)</span>
 </pre></div>
 </div>
- <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-14" >
-<img src="figure/unnamed-chunk-14-1.png" class="rplot" />
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-18" >
+<img src="figure/unnamed-chunk-18-1.png" height="500px" width="500px" class="rplot" />
 </a>
-    <div class="modal hide fade" id="img-unnamed-chunk-14">
+    <div class="modal hide fade" id="img-unnamed-chunk-18">
     <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-14-1.png" />
+    <img src="figure/unnamed-chunk-18-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+</div>
+
+
+<div class="slide" id="control">
+<h1>Fine Control</h1>
+
+<h2><code>classInt</code></h2>
+<ul>
+<li>Finds class intervals for numeric variables</li>
+<li>Multiple methods for interval selection</li>
+<li>Maps intervals to colours</li>
+</ul>
+
+<div id="unnamed-chunk-19" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(rgeos)</span>
+<span class="hl std">&gt; </span><span class="hl com"># compute 4*pi*area/perimeter^2 as a simple compactness measure</span>
+<span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Area</span> <span class="hl kwb">=</span> <span class="hl kwd">gArea</span><span class="hl std">(admin,</span> <span class="hl kwc">byid</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Length</span> <span class="hl kwb">=</span> <span class="hl kwd">gLength</span><span class="hl std">(admin,</span> <span class="hl kwc">byid</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Compact</span> <span class="hl kwb">=</span> <span class="hl num">4</span><span class="hl opt">*</span><span class="hl std">pi</span><span class="hl opt">*</span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Area</span><span class="hl opt">/</span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Length</span><span class="hl opt">^</span><span class="hl num">2</span>
+<span class="hl std">&gt; </span><span class="hl std">ordering</span> <span class="hl kwb">=</span> <span class="hl kwd">order</span><span class="hl std">(</span><span class="hl opt">-</span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Compact)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mfrow</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">10</span><span class="hl std">,</span><span class="hl num">10</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mar</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl com"># plot the 50 least compact, the 50 most compact</span>
+<span class="hl std">&gt; </span><span class="hl kwa">for</span><span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">50</span><span class="hl std">){</span>
+<span class="hl std"> </span> <span class="hl std">j</span> <span class="hl kwb">=</span> <span class="hl std">ordering[i]</span>
+<span class="hl std"> </span> <span class="hl kwd">plot</span><span class="hl std">(admin[j,],</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;#ffeecc&quot;</span><span class="hl std">)</span>
+<span class="hl std"> </span> <span class="hl kwd">text</span><span class="hl std">(</span><span class="hl kwd">coordinates</span><span class="hl std">(admin[j,]),</span>
+<span class="hl std"> </span>    <span class="hl kwd">sprintf</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact[j],</span> <span class="hl kwc">fmt</span><span class="hl std">=</span><span class="hl str">&quot;%4.2f&quot;</span><span class="hl std">))</span>
+<span class="hl std"> </span><span class="hl std">}</span>
+<span class="hl std">&gt; </span><span class="hl kwa">for</span><span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">50</span><span class="hl opt">:</span><span class="hl num">1</span><span class="hl std">){</span>
+<span class="hl std"> </span> <span class="hl std">j</span> <span class="hl kwb">=</span> <span class="hl kwd">rev</span><span class="hl std">(ordering)[i]</span>
+<span class="hl std"> </span> <span class="hl kwd">plot</span><span class="hl std">(admin[j,],</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl str">&quot;#cceeff&quot;</span><span class="hl std">)</span>
+<span class="hl std"> </span> <span class="hl kwd">text</span><span class="hl std">(</span><span class="hl kwd">coordinates</span><span class="hl std">(admin[j,]),</span>
+<span class="hl std"> </span>    <span class="hl kwd">sprintf</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact[j],</span> <span class="hl kwc">fmt</span><span class="hl std">=</span><span class="hl str">&quot;%4.2f&quot;</span><span class="hl std">))</span>
+<span class="hl std"> </span><span class="hl std">}</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-19" >
+<img src="figure/unnamed-chunk-19-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-19">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-19-1.png" style="width: 100%"/>
     <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
     </div> </div></div>
 
+<h2>Categories</h2>
+
+<div id="unnamed-chunk-20" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span><span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;pretty&quot;</span><span class="hl std">)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">style: pretty
+  [0,0.2) [0.2,0.4) [0.4,0.6) [0.6,0.8)   [0.8,1] 
+       11       105       133        67         5 
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span><span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;pretty&quot;</span><span class="hl std">),</span>
+<span class="hl std"> </span>    <span class="hl kwc">pal</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl str">&quot;Spectral&quot;</span><span class="hl std">))</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-20" >
+<img src="figure/unnamed-chunk-20-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-20">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-20-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Various methods</h2>
+
+<div id="unnamed-chunk-21" class="chunk"><div class="transcript half"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span><span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;sd&quot;</span><span class="hl std">),</span>
+<span class="hl std"> </span>    <span class="hl kwc">pal</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl str">&quot;Spectral&quot;</span><span class="hl std">))</span>
+</pre></div>
+
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span><span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;equal&quot;</span><span class="hl std">),</span>
+<span class="hl std"> </span>    <span class="hl kwc">pal</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl str">&quot;Spectral&quot;</span><span class="hl std">))</span>
+</pre></div>
+
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span><span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;quantile&quot;</span><span class="hl std">),</span>
+<span class="hl std"> </span>    <span class="hl kwc">pal</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl str">&quot;Spectral&quot;</span><span class="hl std">))</span>
+</pre></div>
+</div>
+ <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-21" >
+<img src="figure/unnamed-chunk-21-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-21">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-21-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-21" >
+<img src="figure/unnamed-chunk-21-2.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-21">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-21-2.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-21" >
+<img src="figure/unnamed-chunk-21-3.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-21">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-21-3.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Mapping with class intervals</h2>
+<div id="unnamed-chunk-22" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">ci</span> <span class="hl kwb">=</span> <span class="hl kwd">classIntervals</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact,</span> <span class="hl kwc">n</span><span class="hl std">=</span><span class="hl num">5</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;pretty&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl com"># use class intervals as lookup into palette</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(admin,</span>
+<span class="hl std"> </span>     <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span>
+<span class="hl std"> </span>         <span class="hl kwd">length</span><span class="hl std">(ci</span><span class="hl opt">$</span><span class="hl std">brks)</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">,</span>
+<span class="hl std"> </span>         <span class="hl str">&quot;Spectral&quot;</span><span class="hl std">)[</span><span class="hl kwd">findCols</span><span class="hl std">(ci)]</span>
+<span class="hl std"> </span>    <span class="hl std">)</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl com"># get the labels</span>
+<span class="hl std">&gt; </span><span class="hl std">pt</span> <span class="hl kwb">=</span> <span class="hl kwd">print</span><span class="hl std">(ci)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">style: pretty
+  [0,0.2) [0.2,0.4) [0.4,0.6) [0.6,0.8)   [0.8,1] 
+       11       105       133        67         5 
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">legend</span><span class="hl std">(</span><span class="hl str">&quot;topleft&quot;</span><span class="hl std">,</span><span class="hl kwc">legend</span><span class="hl std">=</span><span class="hl kwd">names</span><span class="hl std">(pt),</span>
+<span class="hl std"> </span>    <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl kwd">length</span><span class="hl std">(ci</span><span class="hl opt">$</span><span class="hl std">brks)</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl str">&quot;Spectral&quot;</span><span class="hl std">),</span>
+<span class="hl std"> </span>    <span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">15</span><span class="hl std">,</span><span class="hl kwc">title</span><span class="hl std">=</span><span class="hl str">&quot;Shape&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-22" >
+<img src="figure/unnamed-chunk-22-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-22">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-22-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Functional Mapping</h2>
+<ul>
+<li>By which I mean mapping attribute values to visuals...</li>
+<li>Visual attributes (colour, size etc) should only be functions of the attribute values</li>
+<li>Should be able to write <code>col = chooseColour(data$pop)</code></li>
+<li>Note: <em>NOT</em> <code>col = chooseColour(data$pop, colours, scaling,...)</code></li>
+<li>R lets us write functions that return functions wrapped in an environment...</li>
+</ul>
+
+<div id="unnamed-chunk-23" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">fscale</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">input</span><span class="hl std">,</span> <span class="hl kwc">output</span><span class="hl std">){</span>
+<span class="hl std"> </span><span class="hl com">### return a function that rescales </span>
+<span class="hl std"> </span><span class="hl com">### from the limits of `input` to the limits of `output`</span>
+<span class="hl std"> </span>   <span class="hl std">f</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">){</span>
+<span class="hl std"> </span>     <span class="hl std">s</span> <span class="hl kwb">=</span> <span class="hl std">(x</span><span class="hl opt">-</span><span class="hl kwd">min</span><span class="hl std">(input))</span><span class="hl opt">/</span><span class="hl std">(</span><span class="hl kwd">max</span><span class="hl std">(input)</span><span class="hl opt">-</span><span class="hl kwd">min</span><span class="hl std">(input))</span>
+<span class="hl std"> </span>     <span class="hl std">p</span> <span class="hl kwb">=</span> <span class="hl kwd">min</span><span class="hl std">(output)</span> <span class="hl opt">+</span> <span class="hl std">(</span><span class="hl kwd">max</span><span class="hl std">(output)</span><span class="hl opt">-</span><span class="hl kwd">min</span><span class="hl std">(output))</span><span class="hl opt">*</span><span class="hl std">s</span>
+<span class="hl std"> </span>     <span class="hl kwd">return</span><span class="hl std">(p)</span>
+<span class="hl std"> </span>     <span class="hl std">}</span>
+<span class="hl std"> </span>   <span class="hl kwd">return</span><span class="hl std">(f)</span>
+<span class="hl std"> </span><span class="hl std">}</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl com"># this scales our 0-1 values to 1-10 </span>
+<span class="hl std">&gt; </span><span class="hl std">f10</span> <span class="hl kwb">=</span> <span class="hl kwd">fscale</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">),</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">10</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">f10</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">.5</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">))</span>
+</pre></div>
+<div class="output"><pre class="knitr r">[1]  1.0  5.5 10.0
+</pre></div></div>
+ </div>
+
+<p>Now we can control values to point sizes</p>
+<div id="unnamed-chunk-24" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(</span><span class="hl kwd">SpatialPoints</span><span class="hl std">(admin),</span><span class="hl kwc">cex</span><span class="hl std">=</span><span class="hl kwd">f10</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact),</span><span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">1</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-24" >
+<img src="figure/unnamed-chunk-24-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-24">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-24-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>And colours...</p>
+
+<div id="unnamed-chunk-25" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">cscale</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">data</span><span class="hl std">,</span> <span class="hl kwc">colours</span><span class="hl std">){</span>
+<span class="hl std"> </span>  <span class="hl std">scaler</span> <span class="hl kwb">=</span> <span class="hl kwd">fscale</span><span class="hl std">(data,</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">))</span>
+<span class="hl std"> </span>  <span class="hl std">ramp</span> <span class="hl kwb">=</span> <span class="hl kwd">colorRamp</span><span class="hl std">(colours)</span>
+<span class="hl std"> </span>  <span class="hl std">f</span> <span class="hl kwb">=</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">d</span><span class="hl std">){</span>
+<span class="hl std"> </span>     <span class="hl std">values</span> <span class="hl kwb">=</span> <span class="hl kwd">scaler</span><span class="hl std">(d)</span>
+<span class="hl std"> </span>     <span class="hl std">colours</span> <span class="hl kwb">=</span> <span class="hl kwd">rgb</span><span class="hl std">(</span><span class="hl kwd">ramp</span><span class="hl std">(values),</span><span class="hl kwc">max</span><span class="hl std">=</span><span class="hl num">255</span><span class="hl std">)</span>
+<span class="hl std"> </span>     <span class="hl kwd">return</span><span class="hl std">(colours)</span>
+<span class="hl std"> </span>   <span class="hl std">}</span>
+<span class="hl std"> </span>  <span class="hl kwd">return</span><span class="hl std">(f)</span>
+<span class="hl std"> </span><span class="hl std">}</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl std">pal</span> <span class="hl kwb">=</span> <span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl str">&quot;RdYlBu&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">fullscale</span> <span class="hl kwb">=</span> <span class="hl kwd">cscale</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">),pal)</span>
+<span class="hl std">&gt; </span><span class="hl std">datascale</span> <span class="hl kwb">=</span> <span class="hl kwd">cscale</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact, pal)</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(admin,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">fullscale</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact),</span>
+<span class="hl std"> </span>     <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;scale 0-1&quot;</span><span class="hl std">)</span>
+</pre></div>
+
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(admin,</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">datascale</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact),</span>
+<span class="hl std"> </span>     <span class="hl kwc">main</span><span class="hl std">=</span><span class="hl str">&quot;scale to data range&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-25" >
+<img src="figure/unnamed-chunk-25-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-25">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-25-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-25" >
+<img src="figure/unnamed-chunk-25-2.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-25">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-25-2.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>Scale is reusable</p>
+<div id="unnamed-chunk-26" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mfrow</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">5</span><span class="hl std">,</span><span class="hl num">5</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">par</span><span class="hl std">(</span><span class="hl kwc">mar</span><span class="hl std">=</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">0</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl std">ii</span> <span class="hl kwb">=</span> <span class="hl kwd">sample</span><span class="hl std">(</span><span class="hl kwd">nrow</span><span class="hl std">(admin),</span><span class="hl num">25</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwa">for</span><span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl std">ii){</span>
+<span class="hl std"> </span> <span class="hl kwd">plot</span><span class="hl std">(admin[i,],</span> <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">datascale</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact[i]))</span>
+<span class="hl std"> </span><span class="hl std">}</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-26" >
+<img src="figure/unnamed-chunk-26-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-26">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-26-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Exercise</h2>
+<p>
+Rewrite the road-map styling in a functional way...
+</p>
 
 </div>
 
 
 <div class="slide" id="gridgfxmaps">
 <h1>Mapping with Grid Graphics</h1>
+<ul>
+<li>You could build from scratch with <code>grid.polygon</code>,<code>grid.path</code> etc</li>
+<li>Or use things built on Grid Graphics</li>
+<li>Helps to know you <em>are</em> using Grid underneath so you don't try mixing base graphics</li>
+<li>The <code>sp</code> package gives us the <code>spplot</code> package for styled polygons, lines,
+and points</li>
+</ul>
+
+<div id="unnamed-chunk-27" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">spplot</span><span class="hl std">(admin,</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-27" >
+<img src="figure/unnamed-chunk-27-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-27">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-27-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>Colour mapping lets you do this</p>
+
+<div id="unnamed-chunk-28" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">spplot</span><span class="hl std">(admin,</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">,</span><span class="hl kwc">col.regions</span><span class="hl std">=</span><span class="hl kwd">gray</span><span class="hl std">(</span><span class="hl kwd">seq</span><span class="hl std">(</span><span class="hl num">0</span><span class="hl std">,</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl kwc">len</span><span class="hl std">=</span><span class="hl num">10</span><span class="hl std">)))</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-28" >
+<img src="figure/unnamed-chunk-28-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-28">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-28-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>which is not a <em>Good Thing...</em></p>
 
 </div>
 
 <div class="slide" id="ggplot">
 <h1>Using <code>ggplot</code></h1>
+
+<ul>
+<li>The <em>Grammar of Graphics</em></li>
+<li>Turns data attributes into stylistic attributes of a geometry via scales</li>
+</ul>
+
+<div id="unnamed-chunk-29" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">Council</span> <span class="hl kwb">=</span> <span class="hl kwd">substr</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">name,</span><span class="hl num">1</span><span class="hl std">,</span> <span class="hl kwd">nchar</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">name)</span><span class="hl opt">-</span><span class="hl num">5</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">head</span><span class="hl std">(admin</span><span class="hl opt">@</span><span class="hl kwc">data</span><span class="hl std">)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">                 name      code     Area    Length   Compact
+0       Carlisle 007C E01019239 54505912 35830.186 0.5335257
+1       Carlisle 004B E01019238  3266493  9846.342 0.4233911
+2 South Lakeland 010A E01019348 12632846 16707.814 0.5686850
+3 South Lakeland 011A E01019341  9307645 21982.736 0.2420395
+4 South Lakeland 013A E01019349 28201337 47839.630 0.1548474
+5       Carlisle 006A E01019204  1830868  7722.952 0.3857449
+         Council
+0       Carlisle
+1       Carlisle
+2 South Lakeland
+3 South Lakeland
+4 South Lakeland
+5       Carlisle
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">ggplot</span><span class="hl std">(admin</span><span class="hl opt">@</span><span class="hl kwc">data</span><span class="hl std">,</span> <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=Area,</span> <span class="hl kwc">y</span><span class="hl std">=Length</span><span class="hl opt">^</span><span class="hl num">2</span><span class="hl std">,</span> <span class="hl kwc">col</span><span class="hl std">=Council))</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>  <span class="hl kwd">geom_point</span><span class="hl std">(</span><span class="hl kwc">pch</span><span class="hl std">=</span><span class="hl num">17</span><span class="hl std">,</span> <span class="hl kwc">cex</span><span class="hl std">=</span><span class="hl num">3</span><span class="hl std">)</span>
+</pre></div>
 </div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-29" >
+<img src="figure/unnamed-chunk-29-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-29">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-29-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<ul>
+<li>Colour, position, marker, size and other stylistic attributes are all <em>aesthetics</em> in <code>ggplot</code></li>
+<li>Here colour and position (x,y) are mappes to data attributes</li>
+<li>Plot character and size are fixed</li>
+<li>We use the <code>point</code> "geom".</li>
+<li>All scales are default</li>
+</ul>
+
+<div id="unnamed-chunk-30" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">g</span> <span class="hl kwb">=</span> <span class="hl kwd">ggplot</span><span class="hl std">(admin</span><span class="hl opt">@</span><span class="hl kwc">data</span><span class="hl std">,</span> <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=Area,</span> <span class="hl kwc">y</span><span class="hl std">=Length,</span> <span class="hl kwc">col</span><span class="hl std">=Council))</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>    <span class="hl kwd">geom_point</span><span class="hl std">(</span><span class="hl kwc">cex</span><span class="hl std">=</span><span class="hl num">4</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">g</span> <span class="hl opt">+</span> <span class="hl kwd">scale_colour_brewer</span><span class="hl std">(</span><span class="hl kwc">palette</span><span class="hl std">=</span><span class="hl str">&quot;Set2&quot;</span><span class="hl std">)</span>
+</pre></div>
+
+<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">g</span> <span class="hl opt">+</span> <span class="hl kwd">scale_colour_brewer</span><span class="hl std">(</span><span class="hl kwc">palette</span><span class="hl std">=</span><span class="hl str">&quot;Dark2&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-30" >
+<img src="figure/unnamed-chunk-30-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-30">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-30-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> <a  data-toggle="modal" href="#img-unnamed-chunk-30" >
+<img src="figure/unnamed-chunk-30-2.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-30">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-30-2.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+</div>
+
+<div class="slide" id="ggplotmaps">
+<h1>Maps with <code>ggplot</code></h1>
+
+<h2>Scatter plot</h2>
+<p>Use <code>coord_map</code> to set the aspect ratio for lat-long</p>
+
+<div id="unnamed-chunk-31" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">ggplot</span><span class="hl std">(crime,</span> <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=Longitude,</span> <span class="hl kwc">y</span><span class="hl std">=Latitude))</span> <span class="hl opt">+</span> <span class="hl kwd">geom_point</span><span class="hl std">()</span> <span class="hl opt">+</span> <span class="hl kwd">coord_map</span><span class="hl std">()</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-31" >
+<img src="figure/unnamed-chunk-31-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-31">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-31-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Area plots</h2>
+<p>Rely on fortifying the data...</p>
+
+<div id="unnamed-chunk-32" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">admin_fort</span> <span class="hl kwb">=</span> <span class="hl kwd">fortify</span><span class="hl std">(admin,</span> <span class="hl kwc">region</span><span class="hl std">=</span><span class="hl str">&quot;name&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">head</span><span class="hl std">(admin_fort)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">      long      lat order  hole piece             id            group
+1 309847.0 551634.7     1 FALSE     1 Allerdale 001A Allerdale 001A.1
+2 310337.5 553593.4     2 FALSE     1 Allerdale 001A Allerdale 001A.1
+3 310617.4 553473.4     3 FALSE     1 Allerdale 001A Allerdale 001A.1
+4 310422.6 553627.8     4 FALSE     1 Allerdale 001A Allerdale 001A.1
+5 311060.3 554148.6     5 FALSE     1 Allerdale 001A Allerdale 001A.1
+6 311097.0 553681.9     6 FALSE     1 Allerdale 001A Allerdale 001A.1
+</pre></div></div>
+ </div>
+
+<p>That unwraps all the polygon coordinates. Then <code>geom_map</code> joins 
+it to an arbitrary data frame for mapping. In this case we use the data frame
+from the object we started from.</p>
+
+<div id="unnamed-chunk-33" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">ggplot</span><span class="hl std">(admin</span><span class="hl opt">@</span><span class="hl kwc">data</span><span class="hl std">,</span> <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">map_id</span><span class="hl std">=name) )</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">geom_map</span><span class="hl std">(</span>
+<span class="hl std"> </span>     <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">map_id</span><span class="hl std">=name,</span> <span class="hl kwc">fill</span><span class="hl std">=Council),</span>
+<span class="hl std"> </span>         <span class="hl kwc">map</span> <span class="hl std">= admin_fort,</span> <span class="hl kwc">colour</span><span class="hl std">=</span><span class="hl str">&quot;black&quot;</span><span class="hl std">)</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">expand_limits</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=admin_fort</span><span class="hl opt">$</span><span class="hl std">long ,</span><span class="hl kwc">y</span><span class="hl std">=admin_fort</span><span class="hl opt">$</span><span class="hl std">lat)</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">coord_fixed</span><span class="hl std">()</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-33" >
+<img src="figure/unnamed-chunk-33-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-33">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-33-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<ul>
+<li>Can use <code>ggmap</code> to do OpenStreetMap or Google background layers</li>
+<li>Various traps for the unwary</li>
+<li>Do your own projections</li>
+<li>Do your own map-to-data joins</li>
+</ul>
+
+</div>
+
+<div class="slide" id="mappackages">
+
+<h1>Mapping Packages</h1>
+
+<h2><code>maps</code></h2>
+<div id="unnamed-chunk-34" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(maps)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">map</span><span class="hl std">(</span><span class="hl str">'world'</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-34" >
+<img src="figure/unnamed-chunk-34-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-34">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-34-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+<p>Can set projections...</p>
+<div id="unnamed-chunk-35" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">map</span><span class="hl std">(</span><span class="hl str">'world'</span><span class="hl std">,</span><span class="hl kwc">projection</span><span class="hl std">=</span><span class="hl str">&quot;sinusoidal&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-35" >
+<img src="figure/unnamed-chunk-35-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-35">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-35-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+<p>Can select areas. Note this is still base graphics, lat-long</p>
+<div id="unnamed-chunk-36" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">map</span><span class="hl std">(</span><span class="hl str">'world'</span><span class="hl std">,</span><span class="hl str">'UK'</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem,</span><span class="hl kwc">add</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">,</span> <span class="hl kwc">legend</span><span class="hl std">=</span><span class="hl num">FALSE</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">map</span><span class="hl std">(</span><span class="hl str">'world'</span><span class="hl std">,</span><span class="hl kwc">add</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-36" >
+<img src="figure/unnamed-chunk-36-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-36">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-36-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2><code>rworldmap</code></h2>
+<ul>
+<li>An easy interface for global mapping</li>
+<li>Comes with world map, some basic data</li>
+<li>Can link user data via ISO codes, names</li>
+<li>Categorical or numeric data</li>
+</ul>
+<div id="unnamed-chunk-37" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(rworldmap)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">mapCountryData</span><span class="hl std">(</span><span class="hl kwc">nameColumnToPlot</span><span class="hl std">=</span><span class="hl str">'GEO3major'</span><span class="hl std">,</span>
+<span class="hl std"> </span>   <span class="hl kwc">colourPalette</span><span class="hl std">=</span><span class="hl kwd">brewer.pal</span><span class="hl std">(</span><span class="hl num">7</span><span class="hl std">,</span><span class="hl str">&quot;Set2&quot;</span><span class="hl std">))</span>
+</pre></div>
+<div class="message"><pre class="knitr r">using example data because no file specified in rwmCheckAndLoadInput
+</pre></div>
+<div class="message"><pre class="knitr r">using catMethod='categorical' for non numeric data in mapCountryData
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-37" >
+<img src="figure/unnamed-chunk-37-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-37">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-37-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+<ul>
+<li>Bubble plots</li>
+<li>Bar Charts</li>
+<li>Pie Charts</li>
+</ul>
+
+<div id="unnamed-chunk-38" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">mapBubbles</span><span class="hl std">(</span><span class="hl kwc">dF</span><span class="hl std">=</span><span class="hl kwd">getMap</span><span class="hl std">(),</span>
+<span class="hl std"> </span>      <span class="hl kwc">nameZSize</span><span class="hl std">=</span><span class="hl str">&quot;POP_EST&quot;</span><span class="hl std">,</span>
+<span class="hl std"> </span>      <span class="hl kwc">nameZColour</span><span class="hl std">=</span><span class="hl str">&quot;GEO3&quot;</span><span class="hl std">,</span>
+<span class="hl std"> </span>      <span class="hl kwc">colourPalette</span><span class="hl std">=</span><span class="hl str">'rainbow'</span><span class="hl std">,</span>
+<span class="hl std"> </span>      <span class="hl kwc">oceanCol</span><span class="hl std">=</span><span class="hl str">'lightblue'</span><span class="hl std">,</span> <span class="hl kwc">landCol</span><span class="hl std">=</span><span class="hl str">'wheat'</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-38" >
+<img src="figure/unnamed-chunk-38-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-38">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-38-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2><code>choroplethr</code></h2>
+<ul>
+<li>For plotting choropleths</li>
+<li>Ready for world, US state, US county, top-level admin areas</li>
+<li>Uses grid graphics via <code>ggplot2</code></li>
+</ul>
+
+<div id="unnamed-chunk-39" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(choroplethr)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(choroplethrMaps)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">county_choropleth</span><span class="hl std">(df_pop_county,</span><span class="hl kwc">state_zoom</span>    <span class="hl std">=</span> <span class="hl str">&quot;california&quot;</span><span class="hl std">,</span><span class="hl kwc">reference_map</span> <span class="hl std">=</span> <span class="hl num">TRUE</span><span class="hl std">)</span>
+</pre></div>
+<div class="message"><pre class="knitr r">Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=37.010625,-120.716466&amp;zoom=6&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false
+</pre></div>
+<div class="message"><pre class="knitr r">Scale for 'x' is already present. Adding another scale for 'x', which
+will replace the existing scale.
+</pre></div>
+<div class="message"><pre class="knitr r">Scale for 'y' is already present. Adding another scale for 'y', which
+will replace the existing scale.
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-39" >
+<img src="figure/unnamed-chunk-39-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-39">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-39-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+<ul>
+<li>Note uncredited Google Maps as background</li>
+<li>Tricky to add new shapes (requires writing new R6 Class objects)</li>
+</ul>
+
+<h2><code>quickmapr</code></h2>
+
+<ul>
+<li>Quick interactive zoom/pan etc</li>
+<li>Try the following...</li>
+</ul>
+
+<div id="unnamed-chunk-40" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(quickmapr)</span>
+<span class="hl std">&gt; </span><span class="hl std">q</span> <span class="hl kwb">=</span> <span class="hl kwd">qmap</span><span class="hl std">(crimeSP, adminLL)</span> <span class="hl com"># same proj needed</span>
+<span class="hl std">&gt; </span><span class="hl kwd">zi</span><span class="hl std">(q)</span> <span class="hl com"># one click and zoom in</span>
+<span class="hl std">&gt; </span><span class="hl kwd">zo</span><span class="hl std">(q)</span> <span class="hl com"># click zoom out</span>
+<span class="hl std">&gt; </span><span class="hl kwd">i</span><span class="hl std">(q,</span> <span class="hl str">&quot;adminLL&quot;</span><span class="hl std">)</span> <span class="hl com"># click an admin for info</span>
+<span class="hl std">&gt; </span><span class="hl kwd">i</span><span class="hl std">(q,</span> <span class="hl str">&quot;crimeSP&quot;</span><span class="hl std">)</span> <span class="hl com"># click on a crime</span>
+</pre></div></div>
+ </div>
+
+
+</div>
+
+<div class="slide" id="tmap">
+<h1>The <code>tmap</code> package</h1>
+<ul>
+<li>Has <code>qtm</code>, a bit like <code>spplot</code></li>
+<li>Understands how to plot projections</li>
+<li>Sensible defaults</li>
+<li>Plots columns from sp-class objects</li>
+</ul>
+
+<div id="unnamed-chunk-41" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">qtm</span><span class="hl std">(admin,</span> <span class="hl kwc">fill</span><span class="hl std">=</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-41" >
+<img src="figure/unnamed-chunk-41-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-41">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-41-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>Includes some styles, can write your own:</p>
+
+<div id="unnamed-chunk-42" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">qtm</span><span class="hl std">(admin,</span> <span class="hl kwc">fill</span><span class="hl std">=</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">,</span> <span class="hl kwc">style</span><span class="hl std">=</span><span class="hl str">&quot;classic&quot;</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-42" >
+<img src="figure/unnamed-chunk-42-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-42">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-42-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Get OpenStreetMap raster background</h2>
+
+<div id="unnamed-chunk-43" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">osmap</span> <span class="hl kwb">=</span> <span class="hl kwd">read_osm</span><span class="hl std">(</span><span class="hl kwd">bb</span><span class="hl std">(admin,</span> <span class="hl kwc">ext</span><span class="hl std">=</span><span class="hl num">1.1</span><span class="hl std">,</span> <span class="hl kwc">projection</span><span class="hl std">=</span><span class="hl str">&quot;longlat&quot;</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(osmap)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_raster</span><span class="hl std">()</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-43" >
+<img src="figure/unnamed-chunk-43-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-43">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-43-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<h2>Build custom maps from layers</h2>
+ 
+<p>in a sort-of <code>ggplotty</code> way...</p>
+
+<div id="unnamed-chunk-44" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(osmap)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_raster</span><span class="hl std">()</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_polygons</span><span class="hl std">(</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">,</span> <span class="hl kwc">alpha</span><span class="hl std">=</span><span class="hl num">0.5</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-44" >
+<img src="figure/unnamed-chunk-44-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-44">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-44-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>Interesting facetting...</p>
+<div id="unnamed-chunk-45" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_borders</span><span class="hl std">()</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>  <span class="hl kwd">tm_fill</span><span class="hl std">(</span><span class="hl str">&quot;Compact&quot;</span><span class="hl std">)</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>  <span class="hl kwd">tm_facets</span><span class="hl std">(</span><span class="hl kwc">by</span><span class="hl std">=</span><span class="hl str">&quot;Council&quot;</span><span class="hl std">,</span> <span class="hl kwc">free.coords</span><span class="hl std">=</span><span class="hl num">TRUE</span><span class="hl std">,</span> <span class="hl kwc">drop.shapes</span><span class="hl std">=</span><span class="hl num">FALSE</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-45" >
+<img src="figure/unnamed-chunk-45-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-45">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-45-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+<p>Also does points, lines, and rasters.</p>
+<div id="unnamed-chunk-46" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(dem)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_raster</span><span class="hl std">()</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_borders</span><span class="hl std">()</span> <span class="hl opt">+</span>
+<span class="hl std"> </span>   <span class="hl kwd">tm_shape</span><span class="hl std">(crimeSP)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_dots</span><span class="hl std">()</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-46" >
+<img src="figure/unnamed-chunk-46-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-46">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-46-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+<p>All projected on the fly to the first object.</p>
+
+<ul>
+<li>I really like <code>tmap</code></li>
+<li>I'd like to be able to put formulae or vectors instead of attribute names
+<div id="unnamed-chunk-47" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl com"># this</span>
+<span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">logCompact</span> <span class="hl kwb">=</span> <span class="hl kwd">log</span><span class="hl std">(admin</span><span class="hl opt">$</span><span class="hl std">Compact)</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_fill</span><span class="hl std">(</span><span class="hl str">&quot;logCompact&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl com"># or this</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_fill</span><span class="hl std">(</span><span class="hl opt">~</span><span class="hl kwd">log</span><span class="hl std">(Compact))</span>
+<span class="hl std">&gt; </span><span class="hl com"># this</span>
+<span class="hl std">&gt; </span><span class="hl std">admin</span><span class="hl opt">$</span><span class="hl std">random</span> <span class="hl kwb">=</span> <span class="hl kwd">runif</span><span class="hl std">(</span><span class="hl kwd">nrow</span><span class="hl std">(admin))</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_fill</span><span class="hl std">(random)</span>
+<span class="hl std">&gt; </span><span class="hl com"># or this</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(admin)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_fill</span><span class="hl std">(</span><span class="hl kwd">runif</span><span class="hl std">(</span><span class="hl kwd">nrow</span><span class="hl std">(admin)))</span>
+</pre></div></div>
+ </div>
+</li>
+<li>Not happy with categorical raster objects (land use)...<br/><br/>
+...works if you convert them to <code>SpatialGrid</code> objects with factors!</li>
+</ul>
+
+<div id="unnamed-chunk-48" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lusp</span> <span class="hl kwb">=</span> <span class="hl kwd">as</span><span class="hl std">(lu,</span> <span class="hl str">&quot;SpatialGridDataFrame&quot;</span><span class="hl std">)</span>
+<span class="hl std">&gt; </span><span class="hl std">lusp</span><span class="hl opt">$</span><span class="hl std">cumbriaLandUse</span> <span class="hl kwb">=</span> <span class="hl kwd">as.factor</span><span class="hl std">(lusp</span><span class="hl opt">$</span><span class="hl std">cumbriaLandUse)</span>
+<span class="hl std">&gt; </span><span class="hl std">lupalette</span> <span class="hl kwb">=</span> <span class="hl std">codes[</span><span class="hl kwd">levels</span><span class="hl std">(lusp</span><span class="hl opt">$</span><span class="hl std">cumbriaLandUse),</span><span class="hl str">&quot;colour&quot;</span><span class="hl std">]</span>
+<span class="hl std">&gt; </span><span class="hl kwd">levels</span><span class="hl std">(lusp</span><span class="hl opt">$</span><span class="hl std">cumbriaLandUse)</span> <span class="hl kwb">=</span> <span class="hl std">codes[</span><span class="hl kwd">levels</span><span class="hl std">(lusp</span><span class="hl opt">$</span><span class="hl std">cumbriaLandUse),</span><span class="hl str">&quot;LABEL3&quot;</span><span class="hl std">]</span>
+<span class="hl std">&gt; </span><span class="hl kwd">tm_shape</span><span class="hl std">(lusp)</span> <span class="hl opt">+</span> <span class="hl kwd">tm_raster</span><span class="hl std">(</span><span class="hl str">&quot;cumbriaLandUse&quot;</span><span class="hl std">,</span> <span class="hl kwc">palette</span><span class="hl std">=lupalette,</span> <span class="hl kwc">max.categories</span><span class="hl std">=</span><span class="hl num">29</span><span class="hl std">)</span>
+</pre></div>
+</div>
+ <div class="rimage"><a  data-toggle="modal" href="#img-unnamed-chunk-48" >
+<img src="figure/unnamed-chunk-48-1.png" height="500px" width="500px" class="rplot" />
+</a>
+    <div class="modal hide fade" id="img-unnamed-chunk-48">
+    <button class="close" data-dismiss="modal">×</button>
+    <img src="figure/unnamed-chunk-48-1.png" style="width: 100%"/>
+    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
+    </div> </div></div>
+
+</div>
+
+<div class="slide" id="threed">
+<h1>3D Plots</h1>
+
+<div id="unnamed-chunk-49" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">library</span><span class="hl std">(rgl)</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl std">demG</span> <span class="hl kwb">=</span> <span class="hl kwd">projectRaster</span><span class="hl std">(dem,</span><span class="hl kwc">crs</span><span class="hl std">=</span><span class="hl kwd">CRS</span><span class="hl std">(</span><span class="hl str">&quot;+init=epsg:27700&quot;</span><span class="hl std">))</span>
+<span class="hl std">&gt; </span>
+<span class="hl std">&gt; </span><span class="hl kwd">terrain3d</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=</span><span class="hl kwd">xFromCol</span><span class="hl std">(demG),</span>
+<span class="hl std"> </span>          <span class="hl kwc">y</span><span class="hl std">=</span><span class="hl kwd">yFromRow</span><span class="hl std">(demG),</span>
+<span class="hl std"> </span>          <span class="hl kwc">z</span><span class="hl std">=</span><span class="hl kwd">t</span><span class="hl std">(raster</span><span class="hl opt">::</span><span class="hl kwd">as.matrix</span><span class="hl std">(demG)</span><span class="hl opt">*</span><span class="hl num">10</span><span class="hl std">),</span>
+<span class="hl std"> </span>          <span class="hl kwc">col</span><span class="hl std">=</span><span class="hl kwd">terrain.colors</span><span class="hl std">(</span><span class="hl num">870</span><span class="hl std">)[demG[]</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">],</span>
+<span class="hl std"> </span>          <span class="hl kwc">back</span><span class="hl std">=</span><span class="hl str">&quot;lines&quot;</span><span class="hl std">)</span>
+</pre></div></div>
+ </div>
+
+<div class="center rimage">
+<img src="./graphics/3ddem.png"/>
+</div>
+<h2>Exercise</h2>
+<!--
+luG = projectRaster(lu, demG, method="ngb")
+terrain3d(x=xFromCol(demG),
+           y=yFromRow(demG),
+           z=t(as.matrix(demG)*5),
+           col=codes[as.character(luG[]),"colour"],
+           back="lines")
+-->
+<div class="center rimage">
+<img src="./graphics/3dlu.png"/>
+</div>
+
+<h3>Hints</h3>
+<ul>
+<li>Project land use to DEM - carefully...</li>
+<li>Lookup colours in the lookup table...</li>
+</ul>
+</div>
+
 
 
 <div class="slide" id="webmaps">
 <h1>Interactive Web Maps</h1>
+<h2>leaflet, openlayers</h2>
 </div>
 
 <div class="slide" id="withqgis">
 <h1>Working with QGIS</h1>
 </div>
 
-<div class="slide" id="moretests">
-<h1>Testing</h1>
-<div class="left">
-<ul>
-<li>Bullet points</li>
-<li>Bullet points</li>
-<li>Bullet points</li>
-</ul>
-</div>
-<div class="right">
-<pre>
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-</pre>
-</div>
-<div style="clear:both"></div>
-<ul>
-<li>This is anotehr list..</li>
-</ul>
-<div class="left">
-<ul>
-<li>we use some code to do something</li>
-<li>we use some code to do something</li>
-<li>we use some code to do something</li>
-</ul>
-</div>
-<div class="right">
-<div id="unnamed-chunk-15" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">z</span> <span class="hl kwb">=</span> <span class="hl kwd">runif</span><span class="hl std">(</span><span class="hl num">100</span><span class="hl std">)</span>
-<span class="hl std">&gt; </span><span class="hl kwd">mean</span><span class="hl std">(z)</span>
-</pre></div>
-<div class="output"><pre class="knitr r">[1] 0.4914695
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">median</span><span class="hl std">(z)</span>
-</pre></div>
-<div class="output"><pre class="knitr r">[1] 0.4971172
-</pre></div></div>
- </div>
-</div>
-</div>
-
-<div class="slide" id="plot1">
-<h1>LR test</h1>
-<div class="left">
-<ul>
-<li>A list</ul>
-</ul>
-</div>
-<div class="right">
-<div id="unnamed-chunk-16" class="chunk"><div class="transcript half"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">print</span><span class="hl std">(</span><span class="hl kwd">getwd</span><span class="hl std">())</span>
-</pre></div>
-<div class="output"><pre class="knitr r">[1] &quot;/nobackup/rowlings/Hubic/Work/Conferences/FOSS4GUK2016/Workshop/part1&quot;
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">dem</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaDem.tif&quot;</span><span class="hl std">)</span>
-<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
-</pre></div>
-</div>
- <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-16" >
-<img src="figure/unnamed-chunk-16-1.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-16">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-16-1.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> </div></div>
-</div>
-</div>
-
-<div class="slide" id="maptest">
-<h1>This is a header 1</h1>
-<h2>This is a header 1</h2>
-<h3>This is a header 1</h3>
-<h4>This is a header 1</h4>
-
-<p>This is some text in a paragraph.</p>
-
-<ul>
-<li>list item one outside a paragraph</li>
-<li>list item two</li>
-</ul>
-
-<p>
-<ul>
-<li>list item one <em>inside</em> a paragraph</li>
-<li>list item two</li>
-</ul>
-</p>
-
-<pre>
-some preformatted text
-</pre>
 
 
 
-<div id="unnamed-chunk-17" class="chunk"><div class="transcript half"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(cumbriaLL)</span>
-<span class="hl std">&gt; </span><span class="hl kwd">axis</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">)</span>
-<span class="hl std">&gt; </span><span class="hl kwd">axis</span><span class="hl std">(</span><span class="hl num">2</span><span class="hl std">)</span>
-</pre></div>
-</div>
- <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-17" >
-<img src="figure/unnamed-chunk-17-1.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-17">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-17-1.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> </div></div>
-
-<div id="unnamed-chunk-18" class="chunk"><div class="transcript half"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">cumbriaP</span> <span class="hl kwb">=</span> <span class="hl kwd">spTransform</span><span class="hl std">(cumbriaLL,</span><span class="hl kwd">projection</span><span class="hl std">(dem))</span>
-<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
-<span class="hl std">&gt; </span><span class="hl kwd">lines</span><span class="hl std">(cumbriaP)</span>
-</pre></div>
-</div>
- <div class="sideimage"><a  data-toggle="modal" href="#img-unnamed-chunk-18" >
-<img src="figure/unnamed-chunk-18-1.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-unnamed-chunk-18">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/unnamed-chunk-18-1.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> </div></div>
-</div>
-
-<div class="slide" id="lutest">
-<h1>Land Use</h1>
-<div id="lu" class="chunk"><div class="transcript half"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">lu</span> <span class="hl kwb">=</span> <span class="hl kwd">raster</span><span class="hl std">(</span><span class="hl str">&quot;./data/cumbriaLandUse.tif&quot;</span><span class="hl std">)</span>
-<span class="hl std">&gt; </span><span class="hl com">#plot(spTransform(cumbriaLL, projection(lu)))</span>
-<span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(lu)</span>
-</pre></div>
-
-
-<div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl kwd">plot</span><span class="hl std">(dem)</span>
-</pre></div>
-</div>
- <div class="sideimage"><a  data-toggle="modal" href="#img-lu" >
-<img src="figure/lu-1.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-lu">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/lu-1.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> <a  data-toggle="modal" href="#img-lu" >
-<img src="figure/lu-2.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-lu">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/lu-2.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> <a  data-toggle="modal" href="#img-lu" >
-<img src="figure/lu-3.png" class="rplot" />
-</a>
-    <div class="modal hide fade" id="img-lu">
-    <button class="close" data-dismiss="modal">×</button>
-    <img src="figure/lu-3.png" />
-    <a href="" class="btn btn-primary" data-dismiss="modal">Close</a>
-    </div> </div></div>
-</div>
           
         </div><!--/span-->
 	

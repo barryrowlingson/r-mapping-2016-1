@@ -31,7 +31,7 @@ div.sideimage a img {width: 100% ;
  div.half { float:none ; width: 75% }
 }
 
-div.modal { width:700px; margin: -350px 0 0 -380px;}
+div.modal { width:1000px; margin: -350px 0 0 -500px;}
 
 div.presentation p {margin-top: 1em;font-size: 130% }
 div.presentation p:first-letter { font-size: 150% }

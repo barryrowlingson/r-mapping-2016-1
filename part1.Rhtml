@@ -1,6 +1,10 @@
 <!--begin.rcode init,echo=FALSE,result="hide", cache=FALSE
 # build("./part1/part1.Rhtml", "./templatr/inst/templates/pres1/","index.html",title="Part 1")
-knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev="CairoPNG")
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev="CairoPNG",
+out.width="500px", out.height="500px", dpi=72, fig.width=7
+)
+#, fig.width=20, fig.height=20, 
+# out.width="150px", out.height="150px")
 knitr::opts_knit$set(root.dir=wd)
 setwd(wd)
 knitr::opts_chunk$set(fig.full=FALSE)
@@ -9,6 +13,8 @@ options(continue=" ")
 # grDevices::X11.options(type='cairo')
 palette("default")
 set.seed(310366)
+library(rgl)
+knit_hooks$set(webgl = hook_webgl)
 end.rcode-->
 
 <div class="slide" id="title">
@@ -157,6 +163,58 @@ end.rcode-->
 
 <div class="slide" id="gridgraphics">
 <h1>Grid Graphics</h1>
+<ul>
+<li>Drop everything. Let's start again.</li>
+<li>A New Graphics System</li>
+</ul>
+<!--begin.rcode fig.full=TRUE
+xy=list(
+   x = c(41, 13, 21, 40, 44,
+         31, 49, 55, 65, 83,
+         67, 63, 87, 100, 93,
+         84, 60)/100,
+   y = c(76, 49, 42, 56, 31,
+         2, 2, 26, 3, 2, 33,
+        61, 48, 82, 85, 62, 78)/100)
+
+head = circleGrob(0.5,0.85,.15)
+body = pathGrob(xy$x,xy$y)
+person = grobTree(head,body)
+grid.draw(person)
+vp <- viewport(width=0.5, height=0.5, x=0.25, y=0.45, angle=45)
+pushViewport(vp)
+grid.draw(editGrob(person, gp=gpar(col="red")))
+end.rcode-->
+
+<ul>
+<li>Common paradigm: return an object</li>
+<li>Only draw it when printed</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+p = xyplot(mpg~wt, data=mtcars)
+# nothing happens!
+end.rcode-->
+
+<p>Have to explicitly or implicitly print it</p>
+<!--begin.rcode fig.full=TRUE
+print(p)
+end.rcode-->
+
+<ul>
+<li><em>CANNOT</em> add to it with base graphics: <code>title("Plot")</code>, <code>points(x,y)</code>, 
+<code>abline(v=4)</code> etc.</li>
+<li>Have to build the plot with panel functions</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+xyplot(mpg~wt,data=mtcars, main="Cars",
+   panel=function(x,y,...){
+      panel.xyplot(x,y);panel.lmline(x,y)
+   })
+end.rcode-->
+
+
 </div>
 
 <div class="slide" id="basegfxmaps">
@@ -233,7 +291,8 @@ legend("topleft",
 title("Robbery")
 end.rcode-->
 
-<h2>Constructing look-up tables</h2>
+<h2>Styling with Look-up Tables</h2>
+<p>Want to plot a road map with roads coloured by type...</p>
 <!--begin.rcode fig.full=TRUE
 roads = shapefile("./data/mainroads.shp")
 table(roads$type)
@@ -280,7 +339,7 @@ end.rcode-->
 <!--begin.rcode
 admin = shapefile("./data/cumbriaLSOA.shp")
 extent(admin)
-adminLL = spTransform(admin,"+init=epsg:4326")
+adminLL = spTransform(admin,"+init=epsg:4326") 
 extent(adminLL)
 cumbriaLL = shapefile("./data/cumbria.shp")
 end.rcode-->
@@ -295,7 +354,7 @@ end.rcode-->
 
 <div class="slide" id="basebasemaps">
 <h1>Basemaps</h1>
-<h2>Open Street Map Package</h2>
+<h2><code>OpenStreetMap</code> Package</h2>
 
 <ul>
 <li>Gets map tiles from online sources using <code>openmap()</code> function</li>
@@ -320,6 +379,7 @@ legend("top",
      pt.cex=2,
      bg="white")
 end.rcode-->
+
 </div>
 
 <div class="slide" id="baseraster">
@@ -337,7 +397,9 @@ end.rcode-->
 
 <!--begin.rcode fig.full=TRUE
 require(RColorBrewer)
+library(raster)
 dem = raster("./data/cumbriaDem.tif")
+par(mfrow=c(2,2))
 plot(dem)
 plot(dem,zlim=c(0,1200))
 plot(dem,col=rainbow(10))
@@ -368,141 +430,465 @@ legend("topleft",
     pch=15, pt.cex=1, bg="#FFFFFF80",
     title="Top Land Cover by Area")
 end.rcode-->
+</div>
 
+
+<div class="slide" id="control">
+<h1>Fine Control</h1>
+
+<h2><code>classInt</code></h2>
+<ul>
+<li>Finds class intervals for numeric variables</li>
+<li>Multiple methods for interval selection</li>
+<li>Maps intervals to colours</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+library(rgeos)
+# compute 4*pi*area/perimeter^2 as a simple compactness measure
+admin$Area = gArea(admin, byid=TRUE)
+admin$Length = gLength(admin, byid=TRUE)
+admin$Compact = 4*pi*admin$Area/admin$Length^2
+ordering = order(-admin$Compact)
+par(mfrow=c(10,10))
+par(mar=c(0,0,0,0))
+# plot the 50 least compact, the 50 most compact
+for(i in 1:50){
+ j = ordering[i]
+ plot(admin[j,], col="#ffeecc")
+ text(coordinates(admin[j,]),
+    sprintf(admin$Compact[j], fmt="%4.2f"))
+}
+for(i in 50:1){
+ j = rev(ordering)[i]
+ plot(admin[j,], col="#cceeff")
+ text(coordinates(admin[j,]),
+    sprintf(admin$Compact[j], fmt="%4.2f"))
+}
+end.rcode-->
+
+<h2>Categories</h2>
+
+<!--begin.rcode fig.full=TRUE
+classIntervals(admin$Compact,n=5, style="pretty")
+plot(classIntervals(admin$Compact,n=5, style="pretty"),
+    pal=brewer.pal(5,"Spectral"))
+end.rcode-->
+
+<h2>Various methods</h2>
+
+<!--begin.rcode
+plot(classIntervals(admin$Compact,n=5, style="sd"),
+    pal=brewer.pal(5,"Spectral"))
+plot(classIntervals(admin$Compact,n=5, style="equal"),
+    pal=brewer.pal(5,"Spectral"))
+plot(classIntervals(admin$Compact,n=5, style="quantile"),
+    pal=brewer.pal(5,"Spectral"))
+
+end.rcode-->
+
+<h2>Mapping with class intervals</h2>
+<!--begin.rcode fig.full=TRUE
+ci = classIntervals(admin$Compact, n=5, style="pretty")
+
+# use class intervals as lookup into palette
+plot(admin, 
+     col=brewer.pal(
+         length(ci$brks)-1,
+         "Spectral")[findCols(ci)]
+    )
+
+# get the labels
+pt = print(ci)
+legend("topleft",legend=names(pt),
+    col=brewer.pal(length(ci$brks)-1,"Spectral"),
+    pch=15,title="Shape")
+end.rcode-->
+
+<h2>Functional Mapping</h2>
+<ul>
+<li>By which I mean mapping attribute values to visuals...</li>
+<li>Visual attributes (colour, size etc) should only be functions of the attribute values</li>
+<li>Should be able to write <code>col = chooseColour(data$pop)</code></li>
+<li>Note: <em>NOT</em> <code>col = chooseColour(data$pop, colours, scaling,...)</code></li>
+<li>R lets us write functions that return functions wrapped in an environment...</li>
+</ul>
+
+<!--begin.rcode 
+fscale = function(input, output){
+### return a function that rescales 
+### from the limits of `input` to the limits of `output`
+   f = function(x){
+     s = (x-min(input))/(max(input)-min(input))
+     p = min(output) + (max(output)-min(output))*s
+     return(p)
+     } 
+   return(f)
+}
+
+# this scales our 0-1 values to 1-10 
+f10 = fscale(c(0,1),c(1,10))
+f10(c(0,.5,1))
+end.rcode-->
+
+<p>Now we can control values to point sizes</p>
+<!--begin.rcode fig.full=TRUE
+plot(SpatialPoints(admin),cex=f10(admin$Compact),pch=1)
+end.rcode-->
+
+<p>And colours...</p>
+
+<!--begin.rcode fig.full=TRUE
+
+cscale = function(data, colours){
+  scaler = fscale(data, c(0,1))
+  ramp = colorRamp(colours)
+  f = function(d){
+     values = scaler(d)
+     colours = rgb(ramp(values),max=255)
+     return(colours)
+   }
+  return(f)
+}
+
+pal = brewer.pal(5,"RdYlBu")
+fullscale = cscale(c(0,1),pal)
+datascale = cscale(admin$Compact, pal)
+
+plot(admin, col=fullscale(admin$Compact), 
+     main="scale 0-1")
+plot(admin, col=datascale(admin$Compact),
+     main="scale to data range")
+end.rcode-->
+
+<p>Scale is reusable</p>
+<!--begin.rcode fig.full=TRUE
+par(mfrow=c(5,5))
+par(mar=c(0,0,0,0))
+ii = sample(nrow(admin),25)
+for(i in ii){
+ plot(admin[i,], col=datascale(admin$Compact[i]))
+}
+end.rcode-->
+
+<h2>Exercise</h2>
+<p>
+Rewrite the road-map styling in a functional way...
+</p>
 
 </div>
 
-<div class="slide" id="mappackages">
-<h1>Mapping Packages</h1>
-<h2><code>map</code></h2>
-
-<h2><code>rworldmap</code></h2>
-
-</div>
 
 <div class="slide" id="gridgfxmaps">
 <h1>Mapping with Grid Graphics</h1>
+<ul>
+<li>You could build from scratch with <code>grid.polygon</code>,<code>grid.path</code> etc</li>
+<li>Or use things built on Grid Graphics</li>
+<li>Helps to know you <em>are</em> using Grid underneath so you don't try mixing base graphics</li>
+<li>The <code>sp</code> package gives us the <code>spplot</code> package for styled polygons, lines,
+and points</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+spplot(admin,"Compact")
+end.rcode-->
+
+<p>Colour mapping lets you do this</p>
+
+<!--begin.rcode fig.full=TRUE
+spplot(admin,"Compact",col.regions=gray(seq(0,1,len=10)))
+end.rcode-->
+
+<p>which is not a <em>Good Thing...</em></p>
 
 </div>
 
 <div class="slide" id="ggplot">
 <h1>Using <code>ggplot</code></h1>
+
+<ul>
+<li>The <em>Grammar of Graphics</em></li>
+<li>Turns data attributes into stylistic attributes of a geometry via scales</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+admin$Council = substr(admin$name,1, nchar(admin$name)-5)
+head(admin@data)
+ggplot(admin@data, aes(x=Area, y=Length^2, col=Council)) + 
+  geom_point(pch=17, cex=3)
+end.rcode-->
+
+<ul>
+<li>Colour, position, marker, size and other stylistic attributes are all <em>aesthetics</em> in <code>ggplot</code></li>
+<li>Here colour and position (x,y) are mappes to data attributes</li>
+<li>Plot character and size are fixed</li>
+<li>We use the <code>point</code> "geom".</li>
+<li>All scales are default</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+g = ggplot(admin@data, aes(x=Area, y=Length, col=Council)) + 
+    geom_point(cex=4)
+g + scale_colour_brewer(palette="Set2")
+g + scale_colour_brewer(palette="Dark2")
+end.rcode-->
+
+</div>
+
+<div class="slide" id="ggplotmaps">
+<h1>Maps with <code>ggplot</code></h1>
+
+<h2>Scatter plot</h2>
+<p>Use <code>coord_map</code> to set the aspect ratio for lat-long</p>
+
+<!--begin.rcode fig.full=TRUE
+ggplot(crime, aes(x=Longitude, y=Latitude)) + geom_point() + coord_map()
+
+end.rcode-->
+
+<h2>Area plots</h2>
+<p>Rely on fortifying the data...</p>
+
+<!--begin.rcode fig.full=TRUE
+admin_fort = fortify(admin, region="name")
+head(admin_fort)
+end.rcode-->
+
+<p>That unwraps all the polygon coordinates. Then <code>geom_map</code> joins 
+it to an arbitrary data frame for mapping. In this case we use the data frame
+from the object we started from.</p>
+
+<!--begin.rcode fig.full=TRUE
+ggplot(admin@data, aes(map_id=name) ) +
+   geom_map(
+     aes(map_id=name, fill=Council),
+         map = admin_fort, colour="black") + 
+   expand_limits(x=admin_fort$long ,y=admin_fort$lat) + 
+   coord_fixed()
+end.rcode-->
+
+<ul>
+<li>Can use <code>ggmap</code> to do OpenStreetMap or Google background layers</li>
+<li>Various traps for the unwary</li>
+<li>Do your own projections</li>
+<li>Do your own map-to-data joins</li>
+</ul>
+
+</div>
+
+<div class="slide" id="mappackages">
+
+<h1>Mapping Packages</h1>
+
+<h2><code>maps</code></h2>
+<!--begin.rcode fig.full=TRUE
+library(maps)
+map('world')
+end.rcode-->
+<p>Can set projections...</p>
+<!--begin.rcode fig.full=TRUE
+map('world',projection="sinusoidal")
+end.rcode-->
+<p>Can select areas. Note this is still base graphics, lat-long</p>
+<!--begin.rcode fig.full=TRUE
+map('world','UK')
+plot(dem,add=TRUE, legend=FALSE)
+map('world',add=TRUE)
+end.rcode-->
+
+<h2><code>rworldmap</code></h2>
+<ul>
+<li>An easy interface for global mapping</li>
+<li>Comes with world map, some basic data</li>
+<li>Can link user data via ISO codes, names</li>
+<li>Categorical or numeric data</li>
+</ul>
+<!--begin.rcode fig.full=TRUE, out.width="500px", out.height="500px", dpi=144, fig.width=12
+library(rworldmap)
+mapCountryData(nameColumnToPlot='GEO3major',
+   colourPalette=brewer.pal(7,"Set2"))
+end.rcode-->
+<ul>
+<li>Bubble plots</li>
+<li>Bar Charts</li>
+<li>Pie Charts</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE,  out.width="500px", out.height="500px", dpi=144, fig.width=12
+mapBubbles(dF=getMap(), 
+      nameZSize="POP_EST",
+      nameZColour="GEO3",
+      colourPalette='rainbow', 
+      oceanCol='lightblue', landCol='wheat') 
+end.rcode-->
+
+<h2><code>choroplethr</code></h2>
+<ul>
+<li>For plotting choropleths</li>
+<li>Ready for world, US state, US county, top-level admin areas</li>
+<li>Uses grid graphics via <code>ggplot2</code></li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+library(choroplethr)
+library(choroplethrMaps)
+county_choropleth(df_pop_county,state_zoom    = "california",reference_map = TRUE)
+end.rcode-->
+<ul>
+<li>Note uncredited Google Maps as background</li>
+<li>Tricky to add new shapes (requires writing new R6 Class objects)</li>
+</ul>
+
+<h2><code>quickmapr</code></h2>
+
+<ul>
+<li>Quick interactive zoom/pan etc</li>
+<li>Try the following...</li>
+</ul>
+
+<!--begin.rcode eval=FALSE
+library(quickmapr)
+q = qmap(crimeSP, adminLL) # same proj needed
+zi(q) # one click and zoom in
+zo(q) # click zoom out
+i(q, "adminLL") # click an admin for info
+i(q, "crimeSP") # click on a crime
+end.rcode-->
+
+
+</div>
+
+<div class="slide" id="tmap">
+<h1>The <code>tmap</code> package</h1>
+<ul>
+<li>Has <code>qtm</code>, a bit like <code>spplot</code></li>
+<li>Understands how to plot projections</li>
+<li>Sensible defaults</li>
+<li>Plots columns from sp-class objects</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+qtm(admin, fill="Compact")
+end.rcode-->
+
+<p>Includes some styles, can write your own:</p>
+
+<!--begin.rcode fig.full=TRUE
+qtm(admin, fill="Compact", style="classic")
+end.rcode-->
+
+<h2>Get OpenStreetMap raster background</h2>
+
+<!--begin.rcode fig.full=TRUE
+osmap = read_osm(bb(admin, ext=1.1, projection="longlat"))
+tm_shape(osmap) + tm_raster()
+end.rcode-->
+
+<h2>Build custom maps from layers</h2>
+ 
+<p>in a sort-of <code>ggplotty</code> way...</p>
+
+<!--begin.rcode fig.full=TRUE
+tm_shape(osmap) + tm_raster() + 
+   tm_shape(admin) + tm_polygons("Compact", alpha=0.5)
+end.rcode-->
+
+<p>Interesting facetting...</p>
+<!--begin.rcode fig.full=TRUE
+tm_shape(admin) + tm_borders() + 
+  tm_fill("Compact") + 
+  tm_facets(by="Council", free.coords=TRUE, drop.shapes=FALSE)
+end.rcode-->
+
+<p>Also does points, lines, and rasters.</p>
+<!--begin.rcode fig.full=TRUE
+tm_shape(dem) + tm_raster() + 
+   tm_shape(admin) + tm_borders() + 
+   tm_shape(crimeSP) + tm_dots()
+end.rcode-->
+<p>All projected on the fly to the first object.</p>
+
+<ul>
+<li>I really like <code>tmap</code></li>
+<li>I'd like to be able to put formulae or vectors instead of attribute names
+<!--begin.rcode eval=FALSE
+# this
+admin$logCompact = log(admin$Compact)
+tm_shape(admin) + tm_fill("logCompact")
+# or this
+tm_shape(admin) + tm_fill(~log(Compact))
+# this
+admin$random = runif(nrow(admin))
+tm_shape(admin) + tm_fill(random)
+# or this
+tm_shape(admin) + tm_fill(runif(nrow(admin)))
+end.rcode-->
+</li>
+<li>Not happy with categorical raster objects (land use)...<br/><br/>
+...works if you convert them to <code>SpatialGrid</code> objects with factors!</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+lusp = as(lu, "SpatialGridDataFrame")
+lusp$cumbriaLandUse = as.factor(lusp$cumbriaLandUse)
+lupalette = codes[levels(lusp$cumbriaLandUse),"colour"]
+levels(lusp$cumbriaLandUse) = codes[levels(lusp$cumbriaLandUse),"LABEL3"]
+tm_shape(lusp) + tm_raster("cumbriaLandUse", palette=lupalette, max.categories=29)
+end.rcode-->
+
 </div>
 
 <div class="slide" id="threed">
 <h1>3D Plots</h1>
+
+<!--begin.rcode eval=FALSE
+library(rgl)
+
+demG = projectRaster(dem,crs=CRS("+init=epsg:27700"))
+
+terrain3d(x=xFromCol(demG),
+          y=yFromRow(demG),
+          z=t(raster::as.matrix(demG)*10),
+          col=terrain.colors(870)[demG[]+1],
+          back="lines")
+end.rcode-->
+
+<div class="center rimage">
+<img src="./graphics/3ddem.png"/>
+</div>
+<h2>Exercise</h2>
+<!--
+luG = projectRaster(lu, demG, method="ngb")
+terrain3d(x=xFromCol(demG),
+           y=yFromRow(demG),
+           z=t(as.matrix(demG)*5),
+           col=codes[as.character(luG[]),"colour"],
+           back="lines")
+-->
+<div class="center rimage">
+<img src="./graphics/3dlu.png"/>
+</div>
+
+<h3>Hints</h3>
+<ul>
+<li>Project land use to DEM - carefully...</li>
+<li>Lookup colours in the lookup table...</li>
+</ul>
 </div>
 
 
 
 <div class="slide" id="webmaps">
 <h1>Interactive Web Maps</h1>
+<h2>leaflet, openlayers</h2>
 </div>
 
 <div class="slide" id="withqgis">
 <h1>Working with QGIS</h1>
 </div>
 
-<div class="slide" id="moretests">
-<h1>Testing</h1>
-<div class="left">
-<ul>
-<li>Bullet points</li>
-<li>Bullet points</li>
-<li>Bullet points</li>
-</ul>
-</div>
-<div class="right">
-<pre>
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-a chunk of unformatted text here
-</pre>
-</div>
-<div style="clear:both"></div>
-<ul>
-<li>This is anotehr list..</li>
-</ul>
-<div class="left">
-<ul>
-<li>we use some code to do something</li>
-<li>we use some code to do something</li>
-<li>we use some code to do something</li>
-</ul>
-</div>
-<div class="right">
-<!--begin.rcode 
-z = runif(100)
-mean(z)
-median(z)
+
+
+<!--begin.rcode exit,cache=FALSE,echo=FALSE,result="hide"
+options(continue=op)
 end.rcode-->
-</div>
-</div>
-
-<div class="slide" id="plot1">
-<h1>LR test</h1>
-<div class="left">
-<ul>
-<li>A list</ul>
-</ul>
-</div>
-<div class="right">
-<!--begin.rcode 
-print(getwd())
-dem = raster("./data/cumbriaDem.tif")
-plot(dem)
-end.rcode-->
-</div>
-</div>
-
-<div class="slide" id="maptest">
-<h1>This is a header 1</h1>
-<h2>This is a header 1</h2>
-<h3>This is a header 1</h3>
-<h4>This is a header 1</h4>
-
-<p>This is some text in a paragraph.</p>
-
-<ul>
-<li>list item one outside a paragraph</li>
-<li>list item two</li>
-</ul>
-
-<p>
-<ul>
-<li>list item one <em>inside</em> a paragraph</li>
-<li>list item two</li>
-</ul>
-</p>
-
-<pre>
-some preformatted text
-</pre>
-
-
-
-<!--begin.rcode
-plot(cumbriaLL)
-axis(1)
-axis(2)
-end.rcode-->
-
-<!--begin.rcode
-cumbriaP = spTransform(cumbriaLL,projection(dem))
-plot(dem)
-lines(cumbriaP)
-end.rcode-->
-</div>
-
-<div class="slide" id="lutest">
-<h1>Land Use</h1>
-<!--begin.rcode lu, fig.keep="all"
-lu = raster("./data/cumbriaLandUse.tif")
-#plot(spTransform(cumbriaLL, projection(lu)))
-plot(lu)
-plot(dem)
-end.rcode-->
-</div>
