@@ -13,8 +13,32 @@ options(continue=" ")
 # grDevices::X11.options(type='cairo')
 palette("default")
 set.seed(310366)
-library(rgl)
+
 knit_hooks$set(webgl = hook_webgl)
+end.rcode-->
+
+<!--begin.rcode initlibs, echo=FALSE, result="hide"
+library(xtable)
+library(pathological)
+library(rgl)
+library(grid)
+library(lattice)
+library(sp)
+library(raster)
+library(rworldmap)
+library(tmap)
+library(rgeos)
+library(ggplot2)
+library(ggmap)
+library(OpenStreetMap)
+library(rgdal)
+library(maps)
+library(choroplethr)
+library(choroplethrMaps)
+library(quickmapr)
+library(rgl)
+library(classInt)
+library(maptools)
 end.rcode-->
 
 <div class="slide" id="title">
@@ -396,7 +420,7 @@ end.rcode-->
 </ul>
 
 <!--begin.rcode fig.full=TRUE
-require(RColorBrewer)
+library(RColorBrewer)
 library(raster)
 dem = raster("./data/cumbriaDem.tif")
 par(mfrow=c(2,2))
@@ -480,11 +504,14 @@ end.rcode-->
 <!--begin.rcode
 plot(classIntervals(admin$Compact,n=5, style="sd"),
     pal=brewer.pal(5,"Spectral"))
+end.rcode-->
+<!--begin.rcode
 plot(classIntervals(admin$Compact,n=5, style="equal"),
     pal=brewer.pal(5,"Spectral"))
+end.rcode-->
+<!--begin.rcode
 plot(classIntervals(admin$Compact,n=5, style="quantile"),
     pal=brewer.pal(5,"Spectral"))
-
 end.rcode-->
 
 <h2>Mapping with class intervals</h2>
@@ -841,10 +868,34 @@ end.rcode-->
 <div class="slide" id="threed">
 <h1>3D Plots</h1>
 
+<h2>Static surfaces with <code>persp</code></h2>
+
+<ul>
+<li>Project the DEM so the coordinates are all in metres</li>
+<li>Set the stage and lights!</li>
+</ul>
+
+<!--begin.rcode fig.full=TRUE
+demG = projectRaster(dem,crs=CRS("+init=epsg:27700"))
+persp(demG*20,scale=FALSE, theta=-45, phi=30, 
+      border=NA,col="gray", ltheta=120, shade=0.75)
+end.rcode-->
+
+<p>Overlaying colours is a bit trickier...</p>
+
+<!--begin.rcode fig.full=TRUE
+colours = terrain.colors(840)[t(raster::as.matrix(demG))[1:199,149:2]]
+persp(demG*40, scale=FALSE, col=colours, theta=-45, phi=45, border=FALSE)
+
+end.rcode-->
+
+<p><code>persp()</code> returns a transformation matrix so you can add extra
+things to the plot</p>
+
+<h2>Interactive 3d with <code>rgl</code></h2>
+
 <!--begin.rcode eval=FALSE
 library(rgl)
-
-demG = projectRaster(dem,crs=CRS("+init=epsg:27700"))
 
 terrain3d(x=xFromCol(demG),
           y=yFromRow(demG),
@@ -856,6 +907,11 @@ end.rcode-->
 <div class="center rimage">
 <img src="./graphics/3ddem.png"/>
 </div>
+
+<ul><li>Object can be grabbed and spun</li>
+<li>Other 3d objects can be added</li>
+</ul>
+
 <h2>Exercise</h2>
 <!--
 luG = projectRaster(lu, demG, method="ngb")
@@ -880,14 +936,172 @@ terrain3d(x=xFromCol(demG),
 
 <div class="slide" id="webmaps">
 <h1>Interactive Web Maps</h1>
-<h2>leaflet, openlayers</h2>
+
+
+<ul>
+<li>All have similar goals with varying degrees of complexity and flexibility</li>
+<li>Look out for naming clashes when using more than one!</li>
+<li>Feature List
+<ul>
+ <li>Show points, lines, polys, rasters?</li>
+ <li>Style by fixed colour, vector of colours, automatic, scale function?</li>
+ <li>Automatic Projection?</li>
+ <li>Choice of base maps?</li>
+ <li>Shiny/widget compatible?</li>
+</ul>
+</li>
+</ul>
+
+<h2>Outline</h2>
+<ul>
+<li><code>leaflet</code>
+<ul><li>The most featureful</li>
+<li>Manual projection to lat-long</li>
+<li>Process from data to map can be verbose</li>
+<li>Join elements with <code>%>%</code> operator</li>
+<li><pre>
+leaflet() %>% 
+  addProviderTiles("OpenStreetMap.BlackAndWhite") %>% 
+  addPolygons(data=adminLL) %>% 
+  addCircleMarkers(data=crimeSP)
+</pre>
+</ul>
+</li>
+<li><code>leafletR</code>
+<ul>
+<li>No magic projecting</li>
+<li>Convert everything to geoJSON first</li>
+<li>And save as a geoJSON file</li>
+<li>Breaks <code>package:leaflet</code> !!!</li>
+</ul>
+</li>
+<li><code>rleafmap</code>
+<ul>
+<li>No auto projection</li>
+<li>Manual colours</li>
+</ul>
+</li>
+<li><code>mapview</code>
+<ul><li>Auto projecting!</li>
+<li>Auto-colouring</li>
+<li>Legends</li>
+<li>Vector and Raster Data</li>
+<li>Join layers with <code>+</code> operator</li>
+<li><code>mapView(admin)</code></li>
+<li><code>mapView(admin, "Compact") + crimeSP</code></li>
+</ul>
+</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<ul>
+<li>If you just want simple data visualisations, <code>mapView</code></li>
+<li>If you want to make more complex maps, <code>leaflet</code></li>
+<li>If you want to make really complex visualisations...
+<ul>
+<li>Save as geoJSON</li>
+<li>Learn ECMAScript</li>
+<li>Use raw leaflet or OpenLayers</li>
+<li>Use D3 (or other framework)</li>
+</ul>
+</ul>
+
+
+
 </div>
 
 <div class="slide" id="withqgis">
 <h1>Working with QGIS</h1>
+
+<p>
+We already have the R analysis toolbox for running analyses, but this is
+more for R users who want to use QGIS mapping rather than QGIS users who
+want to use R's analyses.
+</p>
+
+<h2>Why?</h2>
+<ul>
+<li>QGIS is interactive</li>
+<li>QGIS has good cartography</li>
+<li>QGIS has good interoperability</li>
+</ul>
+
+<h2>Why not?</h2>
+<ul>
+<li>Data exchange</li>
+<li>Unreproducible</li>
+<li>Hard to get into <code>knitr</code> or other workflows</li>
+</ul>
+
+<h2>How to?</h2>
+<p>In order of decreasing ridiculousness...</p>
+<ul>
+<li>Embedded R</li>
+<li>WMS/WFS/WCS</li>
+<li>Save to Disk</li>
+</ul>
+
 </div>
 
+<div class="slide" id="embeddr">
+<h2>Embedded R</h2>
+<ul>
+<li>It might be possible to embed R within QGIS by dynamic linking.</li>
+<li>An R console like the Python Console with some access to the API</li>
+<li>A lot of work...</li>
+</ul>
+</div>
 
+<div class="slide" id="qgisrserver">
+<h1>Via WMS/WCS/WFS</h1>
+<ul>
+<li>R can function as a web server</li>
+<li>Could write a compliant WMS/WFS/WCS server in R</li>
+<li>QGIS can talk to the server</li>
+<li>Workflow:
+<ul>
+<li>Work in R.</li>
+<li>Create new column in spatial data frame</li>
+<li>Start server</li>
+<li>Switch to QGIS</li>
+<li>Load and map data</li>
+<li>Repeat...</li>
+</ul>
+</li>
+<li>Did have a proof-of-concept a few years ago</li>
+<li>Slow, but clunky, limitations of servers</li>
+</ul>
+</div>
+
+<div class="slide" id="savetodisk">
+<h1>Save To Disk</h1>
+
+<ul>
+<li>Save vector data as OGR data sets</li>
+<li>Trivially, shapefiles</li>
+<li>Less trivially, SpatiaLITE databases</li>
+<li>Save raster data as GeoTIFF files</li>
+</ul>
+
+<h2>Limitations</h2>
+<ul>
+<li>Data format limitations (attrbute name lengths, etc)</li>
+<li>Disk Storage and Speed</li>
+<li>Getting QGIS to refresh</li>
+</ul>
+
+<h2>Advanced ideas</h2>
+
+<ul>
+<li>Keep geometry in SpatiaLITE database</li>
+<li>Any new attributes from R written to non-spatial table in the DB</li>
+<li>A spatial join in the DB updates the spatial table in QGIS</li>
+<li>QGIS notices and updates</li>
+</ul>
+
+
+</div>
 
 <!--begin.rcode exit,cache=FALSE,echo=FALSE,result="hide"
 options(continue=op)
