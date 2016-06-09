@@ -13,8 +13,31 @@ options(continue=" ")
 # grDevices::X11.options(type='cairo')
 palette("default")
 set.seed(310366)
-library(rgl)
+
 knit_hooks$set(webgl = hook_webgl)
+
+## ----initlibs, echo=FALSE, result="hide"---------------------------------
+library(xtable)
+library(pathological)
+library(rgl)
+library(grid)
+library(lattice)
+library(sp)
+library(raster)
+library(rworldmap)
+library(tmap)
+library(rgeos)
+library(ggplot2)
+library(ggmap)
+library(OpenStreetMap)
+library(rgdal)
+library(maps)
+library(choroplethr)
+library(choroplethrMaps)
+library(quickmapr)
+library(rgl)
+library(classInt)
+library(maptools)
 
 ## ------------------------------------------------------------------------
 plot(rnorm(1000), rnorm(1000))
@@ -169,7 +192,7 @@ legend("top",
      bg="white")
 
 ## ----fig.full=TRUE-------------------------------------------------------
-require(RColorBrewer)
+library(RColorBrewer)
 library(raster)
 dem = raster("./data/cumbriaDem.tif")
 par(mfrow=c(2,2))
@@ -231,11 +254,14 @@ plot(classIntervals(admin$Compact,n=5, style="pretty"),
 ## ------------------------------------------------------------------------
 plot(classIntervals(admin$Compact,n=5, style="sd"),
     pal=brewer.pal(5,"Spectral"))
+
+## ------------------------------------------------------------------------
 plot(classIntervals(admin$Compact,n=5, style="equal"),
     pal=brewer.pal(5,"Spectral"))
+
+## ------------------------------------------------------------------------
 plot(classIntervals(admin$Compact,n=5, style="quantile"),
     pal=brewer.pal(5,"Spectral"))
-
 
 ## ----fig.full=TRUE-------------------------------------------------------
 ci = classIntervals(admin$Compact, n=5, style="pretty")
@@ -416,10 +442,18 @@ lupalette = codes[levels(lusp$cumbriaLandUse),"colour"]
 levels(lusp$cumbriaLandUse) = codes[levels(lusp$cumbriaLandUse),"LABEL3"]
 tm_shape(lusp) + tm_raster("cumbriaLandUse", palette=lupalette, max.categories=29)
 
+## ----fig.full=TRUE-------------------------------------------------------
+demG = projectRaster(dem,crs=CRS("+init=epsg:27700"))
+persp(demG*20,scale=FALSE, theta=-45, phi=30, 
+      border=NA,col="gray", ltheta=120, shade=0.75)
+
+## ----fig.full=TRUE-------------------------------------------------------
+colours = terrain.colors(840)[t(raster::as.matrix(demG))[1:199,149:2]]
+persp(demG*40, scale=FALSE, col=colours, theta=-45, phi=45, border=FALSE)
+
+
 ## ----eval=FALSE----------------------------------------------------------
 ## library(rgl)
-## 
-## demG = projectRaster(dem,crs=CRS("+init=epsg:27700"))
 ## 
 ## terrain3d(x=xFromCol(demG),
 ##           y=yFromRow(demG),
