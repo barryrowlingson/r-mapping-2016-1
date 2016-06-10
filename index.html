@@ -1077,10 +1077,16 @@ and points</li>
 
 <ul>
 <li>Colour, position, marker, size and other stylistic attributes are all <em>aesthetics</em> in <code>ggplot</code></li>
-<li>Here colour and position (x,y) are mappes to data attributes</li>
+<li>Here colour and position (x,y) are mapped to data attributes</li>
 <li>Plot character and size are fixed</li>
-<li>We use the <code>point</code> "geom".</li>
+<li>We use the <code>point</code> "geom"</li>
 <li>All scales are default</li>
+</ul>
+
+<h2>Building <code>ggplot</code> graphics</h2>
+
+<ul>
+<li>Create a basic object and modify it by addition</li>
 </ul>
 
 <div id="unnamed-chunk-32" class="chunk"><div class="transcript"><div class="source"><pre class="knitr r"><span class="hl std">&gt; </span><span class="hl std">g</span> <span class="hl kwb">=</span> <span class="hl kwd">ggplot</span><span class="hl std">(admin</span><span class="hl opt">@</span><span class="hl kwc">data</span><span class="hl std">,</span> <span class="hl kwd">aes</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">=Area,</span> <span class="hl kwc">y</span><span class="hl std">=Length,</span> <span class="hl kwc">col</span><span class="hl std">=Council))</span> <span class="hl opt">+</span>
@@ -1654,7 +1660,7 @@ want to use R's analyses.
 </div>
 
 <div class="slide" id="embeddr">
-<h2>Embedded R</h2>
+<h1>Embedded R</h1>
 <ul>
 <li>It might be possible to embed R within QGIS by dynamic linking.</li>
 <li>An R console like the Python Console with some access to the API</li>
